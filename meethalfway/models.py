@@ -88,7 +88,11 @@ class Meeting(models.Model):
 #             print("**results**")
 #             print(rv)
             final = map_addresses(rv, potential_dest)
-            return final
+            for d in final.keys():
+                dest = Destination.object.create(address = d, a_time = d['a_mins'], b_time = d['b_mins'],
+                    latlng = d['latlng'], name = d['name'], place_id = d['place_id'])
+                dest.save()
+                self.destinations.add(dest)
         else:
             return None
 
