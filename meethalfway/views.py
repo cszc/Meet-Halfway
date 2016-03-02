@@ -106,7 +106,7 @@ def participant_two(request, meeting_id):
             meeting = models.Meeting.objects.get(trip_id = meeting_id)
             meeting.participant_two = part_obj
             meeting.save()
-            #call midway function with meeting attributes
+            meeting.get_destinations()
             return redirect('test:results', meeting.trip_id)
     address = AddAddress()
     participant = AddParticipant()
@@ -128,6 +128,7 @@ def participant_two(request, meeting_id):
     #     'forms': [GetMeetingID]
     # }
 def results(request, meeting_id):
+
     return render(request, "halfwayapp/results.html")
     # return HttpResponse("Results page")
 
