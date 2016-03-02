@@ -128,4 +128,8 @@ def participant_two(request, meeting_id):
     #     'forms': [GetMeetingID]
     # }
 def results(request, meeting_id):
-    return HttpResponse("Results page")
+    return render(request, "halfwayapp/results.html")
+    # return HttpResponse("Results page")
+
+def about(request):
+    return render(request, "halfwayapp/about.html")
