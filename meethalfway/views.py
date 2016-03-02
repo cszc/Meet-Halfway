@@ -55,7 +55,7 @@ def home(request):
             meeting = AddMeeting(request.POST)
             if address.is_valid() and participant.is_valid() and meeting.is_valid():
                 c = personA(request, address, participant, meeting)
-                return render(request,'halfwayapp/response.html',c)
+                return render(request,'meethalfway/response.html',c)
         elif 'Enter_trip_id' in request.POST:
             trip_id = EnterIDForm(request.POST)
             if trip_id.is_valid():
@@ -75,7 +75,7 @@ def home(request):
         'trip_id_form': trip_id
     }
 
-    return render(request, 'halfwayapp/home.html', c)
+    return render(request, 'meethalfway/home.html', c)
 
 
 def personA(request, address, participant, meeting):
@@ -116,7 +116,7 @@ def participant_two(request, meeting_id):
         'uniq': meeting_id
     }
 
-    return render(request, "halfwayapp/person2.html", c)
+    return render(request, "meethalfway/person2.html", c)
 
     # enter_id = trip_id.validate_trip_id()
     # if enter_id:
