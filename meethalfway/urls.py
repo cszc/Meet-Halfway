@@ -21,7 +21,7 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'home', views.home, name='home'),
     url(r'^participant_two/(?P<meeting_id>[a-z]+-[a-z]+-[a-z]+)', views.participant_two, name = 'participant_two'),
-    url(r'^results/(?P<meeting_id>[a-z]+-[a-z]+-[a-z]+)', views.results, name = 'results')
+    url(r'^results/(?P<meeting_id>[a-z]+-[a-z]+-[a-z]+)', views.results, name = 'results'),
     url(r'about', views.about, name='about')
 
 ]
