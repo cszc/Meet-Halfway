@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'halfwayapp',
+    'meethalfway',
     'bootstrap3',
 ]
 
@@ -52,7 +52,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'djangohalfway.urls'
+ROOT_URLCONF = 'cs122.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djangohalfway.wsgi.application'
+WSGI_APPLICATION = 'cs122.wsgi.application'
 
 
 # Database
