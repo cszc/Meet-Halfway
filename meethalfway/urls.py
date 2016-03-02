@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^participant_two/(?P<meeting_id>[a-z]+-[a-z]+-[a-z]+)', views.participant_two, name = 'participant_two'),
     url(r'^results/(?P<meeting_id>[a-z]+-[a-z]+-[a-z]+)', views.results, name = 'results'),
     url(r'about', views.about, name='about')
+    url(r'contact', views.contact, name='contact')
 
 ]
 # urlpatterns += staticfiles_urlpatterns()
