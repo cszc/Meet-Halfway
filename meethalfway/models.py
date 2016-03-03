@@ -66,8 +66,8 @@ class Meeting(models.Model):
         with open('apikeys.txt', 'r') as f:
             apikey = f.readline()
         gmaps = googlemaps.Client(key=apikey)
-        address1 = self.participant_one.address
-        address2 = self.participant_two.address
+        address1 = self.participant_one.starting_location
+        address2 = self.participant_two.starting_location
 
         latlngs_a, potential_dest_a = self.get_potential_destinations(address1, address2, gmaps, apikey)
         latlngs_b, potential_dest_b = self.get_potential_destinations(address2, address1, gmaps, apikey)
