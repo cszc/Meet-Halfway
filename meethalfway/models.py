@@ -77,11 +77,8 @@ class Meeting(models.Model):
             apikey = f.readline().strip()
 
         gmaps = googlemaps.Client(key=apikey)
-        address1 = self.participant_one.starting_location
-        address2 = self.participant_two.starting_location
-
-        address1 = str(address1)
-        address2 = str(address2)
+        address1 = str(self.participant_one.starting_location)
+        address2 = str(self.participant_two.starting_location)
 
         mode1 = self.participant_one.transit_mode
         mode2 = self.participant_two.transit_mode
@@ -277,7 +274,7 @@ class Meeting(models.Model):
             if len(return_values) < 5:
                 if v['score'] < 0.2:
                     return_values[k] = v
-        if len(rv) == 0:
+        if len(return_values) == 0:
             found_result = False
             return found_result, best[ADDRESS]
         else:
