@@ -78,7 +78,7 @@ def home(request):
     c = {
         'forms': [address, participant, meeting],
         'trip_id_form': trip_id,
-        'error' = error
+        # 'error' = error
     }
 
     return render(request, 'halfwayapp/home.html', c)

@@ -43,6 +43,8 @@ class Meeting(models.Model):
         ("cafe", "Cafe"),
         ("bar", "Bar"),
         ("restaurant", "Restaurant"),
+        ("museum", "Museum"),
+        ("park", "Park")
         )
     participant_one = models.ForeignKey(
         Participant, related_name = 'participant_one', null = True, blank =  True)
@@ -109,8 +111,9 @@ class Meeting(models.Model):
             if len(to_try) < 20:
                 to_try.append(v['address'])
 
-        matrix_a = self.get_matrix(gmaps, address1, mode1, to_try)
-        matrix_b = self.get_matrix(gmaps, address2, mode2, to_try)
+        matrix_a = self.get_matrix(gmaps, address1, to_try, mode1)
+        matrix_b = self.get_matrix(gmaps, address2, to_try, mode2)
+
 
         found_result, rv = self.get_results(matrix_a, matrix_b, gmaps)
 
@@ -242,8 +245,7 @@ class Meeting(models.Model):
             dest_dict[coords] = {'name': name, 'place_id': place_id, 'address': address}
         return rv, dest_dict
 
-
-    def get_matrix_(self, client, origins, destinations, mode='transit'):
+    def get_matrix(self, client, origins, destinations, mode='transit'):
         matrix = client.distance_matrix(origins, destinations, mode=mode)
         return matrix
 
