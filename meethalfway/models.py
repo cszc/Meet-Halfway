@@ -128,7 +128,7 @@ class Meeting(models.Model):
                 dest.save()
                 self.destinations.add(dest)
         else:
-            rv = best_address
+            #rv = best_address
             #rewrite with midpoint being passed into get potential destinations
             return None
 
