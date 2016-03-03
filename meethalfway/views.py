@@ -134,3 +134,6 @@ def results(request, meeting_id):
 
 def about(request):
     return render(request, "halfwayapp/about.html")
+
+def contact(request):
+    return render(request, "halfwayapp/contact.html")
