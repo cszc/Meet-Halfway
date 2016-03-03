@@ -27,7 +27,7 @@ class Participant(models.Model):
 
     # def __str__(self):
     #     return "%s %s" % (self.starting_location, self.transit_mode)
-    
+
     def get_id(self):
         return self.id
 
@@ -107,7 +107,7 @@ class Meeting(models.Model):
 
         #Step 2: Get the times from each participant to each potential destination
         to_try = []
-        for k,v in potential_dest.items():
+        for k, v in potential_dest.items():
             if len(to_try) < 20:
                 to_try.append(v['address'])
 
@@ -131,6 +131,8 @@ class Meeting(models.Model):
                 dest.save()
                 self.destinations.add(dest)
         else:
+            rv = best_address
+            #rewrite with midpoint being passed into get potential destinations
             return None
 
     def get_potential_destinations(self, steps, time, gmaps, apikey):
@@ -183,11 +185,8 @@ class Meeting(models.Model):
         s = str(new_lat) + "," + str(new_lng)
         return s
 
-
-
     def get_directions(self, client, origin, destination, mode='transit'):
         return client.directions(origin, destination, mode=mode)
-
 
 
     def get_steps_and_time(self, directions):
@@ -230,7 +229,7 @@ class Meeting(models.Model):
         return latlngs, dest_dict
 
 
-    def parse_places(self,places, gmaps):
+    def parse_places(self, places, gmaps):
         rv = []
         dest_dict = {}
         for p in places["results"]:
@@ -245,40 +244,45 @@ class Meeting(models.Model):
             dest_dict[coords] = {'name': name, 'place_id': place_id, 'address': address}
         return rv, dest_dict
 
+
     def get_matrix(self, client, origins, destinations, mode='transit'):
         matrix = client.distance_matrix(origins, destinations, mode=mode)
         return matrix
 
 
     def get_results(self, matrix_a, matrix_b, gmaps):
+        ADDRESS = 0
+        SCORE = 1
         scores = {}
         addresses = matrix_a['destination_addresses']
         a_times = matrix_a['rows'][0]['elements']
         b_times = matrix_b['rows'][0]['elements']
-        best = (None,0)
-        for i, a in enumerate(addresses):
+        best = (None, 0)
+
+        for i, address_i in enumerate(addresses):
             a_time = a_times[i]['duration']['value']
             b_time = b_times[i]['duration']['value']
             if a_time <= b_time:
-                score = 1 - (a_time/b_time)
+                this_score = 1 - (a_time/b_time)
             else:
-                score = 1 - (b_time/a_time)
-            scores[a] = {'a_mins': a_time /60, 'b_mins': b_time/60, 'score': score}
-            if score > best[1]:
-                best = (a,score)
-        rv = {}
+                this_score = 1 - (b_time/a_time)
+            scores[address_i] = {
+                'a_mins': a_time /60,
+                'b_mins': b_time/60,
+                'score': this_score}
+            if this_score > best[SCORE]:
+                best = (address_i, this_score)
+        return_values = {}
         for k, v in scores.items():
-            if len(rv) < 3:
+            if len(return_values) < 5:
                 if v['score'] < 0.2:
-                    rv[k] = v
+                    return_values[k] = v
         if len(rv) == 0:
-    #         best_scores = sorted(scores, key=lambda tup: tup[3])
             found_result = False
-            return found_result, best[0]
+            return found_result, best[ADDRESS]
         else:
-    #         rv = sorted(rv, key=lambda tup: tup[3])
             found_result = True
-            return found_result, rv
+            return found_result, return_values
 
     def __str__(self):
         return "%s " % (self.trip_id)
