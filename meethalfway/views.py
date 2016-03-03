@@ -61,18 +61,24 @@ def home(request):
             if trip_id.is_valid():
                 valid_trip_id = trip_id.validate_trip_id()
                 if valid_trip_id:
-                    return redirect('test:participant_two', valid_trip_id)
+                    meeting = models.Meeting.objects.get(trip_id = valid_trip_id)
+                    if not meeting.participant_two:
+                        return redirect('test:participant_two', valid_trip_id)
+                    else:
+                        return redirect('test:results', valid_trip_id)
                 else:
-                    return HttpResponse("Invalid trip id")
+                    error = "You entered an invalid trip ID"
 
     address = AddAddress()
     participant = AddParticipant()
     meeting = AddMeeting()
     trip_id = EnterIDForm()
+    error = None
 
     c = {
         'forms': [address, participant, meeting],
-        'trip_id_form': trip_id
+        'trip_id_form': trip_id,
+        'error' = error
     }
 
     return render(request, 'halfwayapp/home.html', c)
