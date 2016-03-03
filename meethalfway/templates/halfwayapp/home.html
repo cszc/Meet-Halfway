@@ -1,4 +1,5 @@
 {% extends "halfwayapp/base.html" %}
+{% load bootstrap %}
 
 {% block content %}
     <header class="business-header">
@@ -16,26 +17,26 @@
 <div class = "container">
     <hr>
     <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
         <h2>Create a new meeting</h2>
         <p class="lead">Enter your starting point.</p>
         <form method="post">
         {% csrf_token %}
             <table class='table-condensed'>
             {% for form in forms %}
-                {{ form }}
+                {{ form|bootstrap }}
             {% endfor %}
             </table>
         <input type="submit" name="PersonA_submit" value="Submit Address" class="btn btn-success"/>
         </form>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
         <h2>Look up a meeting</h2>
         <p class = "lead">Enter your meeting id.</p>
         <form method="post" class="form-horizontal">
         {% csrf_token %}
             <table class="table-condensed">
-                {{ trip_id_form }}
+                {{ trip_id_form|bootstrap }}
             </table>
         <input type="submit" name="Enter_trip_id" value="Submit" class="btn btn-success"/>
         </form>
