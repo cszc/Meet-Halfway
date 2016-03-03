@@ -41,4 +41,10 @@ body {
 .tagline {
     text-shadow: 0 0 10px #000;
     color: #fff;
+    font-family:'Lobster', cursive;
+    font-size: 60px;
+}
+.tagline-small {
+    text-shadow: 0 0 10px #000;
+    color: #fff;
 }

@@ -5,13 +5,9 @@
 <div class = "container">
     <div class="row">
         <div class='page-header'>
-        <h1>Success! Your meeting has been saved.</h1>
+        <h1>Success! You're on your way.</h1>
         </div>
-        <p class="lead">Send your friend this code to invite them to enter their address:
-            </br>
-            <strong>{{uniq}}</strong>
-            </br>
-        </p>
+        <p class="lead">Send your friend this code to invite them to enter their address:</p>
 
         <script src="../static/clipboard/dist/clipboard.min.js"></script>
 
@@ -24,8 +20,6 @@
             console.log(e);
         });
         </script>
-        <h5> <strong> Copy the Meeting ID: </strong> </h5>
-
             <!-- Target -->
             <input id="copyid" value="{{uniq}}">
             <!-- Trigger -->
@@ -35,18 +29,20 @@
                 Copy to clipboard
             </button>
         </br>
-
-        <h5> <strong> Or, feel free to copy and paste this message to send to your friend: </strong> </h5>
-        <p><i>"Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io"</i></p>
+        <br>
+        <p class='lead'>Or, email them this message:</p>
+        <textarea id='fulltext' rows="4" cols="50">Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io
+        </textarea>
         <!-- Target -->
-            <input id="fulltext" value="Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io">
-
+<!--             <input id="fulltext" value="Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io">
+ -->
             <!-- Trigger -->
+            <div>
             <button class="btn" data-clipboard-target="#fulltext">
                 <span class='glyphicon glyphicon-copy'></span>
                 Copy to clipboard
             </button>
-        <p>
+            </div>
             <h3>What now?</h3>
             <a class="btn btn-primary" href="/test/participant_two/{{uniq}}" role="button">Go to your Meeting</a> or
             <a class="btn-link" href="" role="button">return to the homepage.</a>
