@@ -4,7 +4,14 @@
 <div class = "container">
     <div class="row">
     <h1>Results</h1>
+    {% for destination in destinations %}
+    <div>
+      <p>Here are your best meeting places:</p>
+      <p>{{ destination.name }}
+      <p>{{ desintation.address }}</p>
+
 	</div>
+    {% end for %}
 </div>
 
 {% endblock %}

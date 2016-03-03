@@ -72,8 +72,8 @@ class Meeting(models.Model):
         with open('apikeys.txt', 'r') as f:
             apikey = f.readline()
         gmaps = googlemaps.Client(key=apikey)
-        address1 = self.participant_one.address
-        address2 = self.participant_two.address
+        address1 = self.participant_one.starting_location
+        address2 = self.participant_two.starting_location
         mode1 = self.participant_one.transit_mode
         mode2 = self.participant_two.transit_mode
 
