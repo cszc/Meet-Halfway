@@ -118,18 +118,15 @@ def participant_two(request, meeting_id):
 
     return render(request, "halfwayapp/person2.html", c)
 
-    # enter_id = trip_id.validate_trip_id()
-    # if enter_id:
-    #     return HttpResponse("The trip is in the database")
-    # else:
-    #     return HttpResponse("Invalid trip id")
-    #
-    # c = {
-    #     'forms': [GetMeetingID]
-    # }
 def results(request, meeting_id):
+    meeting = models.Meeting.objects.get(trip_id = meeting_id)
+    destinations = meeting.destinations_set.all()
 
-    return render(request, "halfwayapp/results.html")
+    c = {
+        'destinations': destinations
+        'meeting_id': meeting_id
+    }
+    return render(request, "halfwayapp/results.html", c)
     # return HttpResponse("Results page")
 
 def about(request):
