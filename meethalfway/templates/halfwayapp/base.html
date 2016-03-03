@@ -72,13 +72,29 @@
         </div>
         <!-- /.container -->
     </nav>
+
     {% block content %}
     {% endblock %}
+
+
+
+    <!-- Footer -->
+    <div class='container'>
+    <hr>
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>A project for CS122, University of Chicago</p>
+            </div>
+        </div>
+        <!-- /.row -->
+    </footer>
+
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     <!-- jQuery -->
     <script src="{% static "js/jquery.js" %}"></script>
 
-
+    </div>
 </body>
 
 </html>
