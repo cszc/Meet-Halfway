@@ -28,7 +28,8 @@ body {
 
 .business-header {
     height: 200px;
-    background: url('https://github.com/ladyson/pllc/blob/master/meethalfway/static/bootstrap/images/bg4.png?raw=true') center center no-repeat scroll;
+    background: linear-gradient(to right, rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)),
+    url('../images/ferris.png') center center no-repeat scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
