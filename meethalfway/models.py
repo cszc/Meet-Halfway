@@ -20,6 +20,7 @@ class Participant(models.Model):
         ("walking", "Walking"),
         ("transit", "Public Transit"),
         ("driving", "Driving"),
+        ("bicycling", "Bicycling")
         )
     starting_location = models.ForeignKey(Address, null=True, blank = True)
     transit_mode = models.CharField(max_length = 70, choices = TRANSIT_TYPES)
@@ -55,7 +56,7 @@ class Meeting(models.Model):
     trip_id = models.CharField(
         max_length = 100, null=True, blank = True)
     destinations = models.ManyToManyField(
-        Destination, null=True, blank = True)
+        Destination, blank = True)
 
     def set_participant_two(self, participant):
         self.participant_two = participant
@@ -74,8 +75,7 @@ class Meeting(models.Model):
     def get_destinations(self):
         with open('apikeys.txt', 'r') as f:
             apikey = f.readline()
-        print(type(apikey))
-        print(apikey)
+
         gmaps = googlemaps.Client(key=apikey)
         address1 = self.participant_one.starting_location
         address2 = self.participant_two.starting_location
