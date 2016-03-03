@@ -123,7 +123,7 @@ def results(request, meeting_id):
     destinations = meeting.destinations_set.all()
 
     c = {
-        'destinations': destinations
+        'destinations': destinations,
         'meeting_id': meeting_id
     }
     return render(request, "halfwayapp/results.html", c)
