@@ -28,7 +28,7 @@ body {
 
 .business-header {
     height: 200px;
-    background: url('https://github.com/ladyson/pllc/blob/master/meethalfway/static/bootstrap/images/bg4.png?raw=true') center center no-repeat scroll;
+    background: url('https://github.com/ladyson/pllc/blob/master/meethalfway/static/bootstrap/images/dark_banner_city.png?raw=true') center center no-repeat scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;

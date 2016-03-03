@@ -9,7 +9,7 @@
                     <br>
                     <br>
                     <h1 class="tagline text-center">LET'S MEET HALFWAY</h1>
-                    <h3 class='tagline text-center'>Discover convenient places to meet up, safely and securely.</h3>
+                    <h4 class='tagline text-center'>Discover convenient places to meet up, safely and securely.</h4>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <p class="lead">Enter your starting point.</p>
         <form method="post">
         {% csrf_token %}
-            <table class='table-condensed'>
+            <table class='table'>
             {% for form in forms %}
                 {{ form|bootstrap }}
             {% endfor %}
