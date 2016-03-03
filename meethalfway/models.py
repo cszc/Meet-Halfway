@@ -86,13 +86,13 @@ class Meeting(models.Model):
 
         #Step 1: Get potential destinations based on midpoint for each participant
         #returns pseudo json/dicts of dicts
-        directions_a = get_directions(gmaps, address1, address2, mode=mode1)
-        directions_b = get_directions(gmaps, address2, address1, mode=mode2)
+        directions_a = self.get_directions(gmaps, address1, address2, mode=mode1)
+        directions_b = self.get_directions(gmaps, address2, address1, mode=mode2)
 
         #would be great if this and directions were stored in Part. Class
         #returns typle (substeps, time)
-        steps_a, time_a = get_steps_and_time(directions_a)
-        steps_b, time_b = get_steps_and_time(directions_b)
+        steps_a, time_a = self.get_steps_and_time(directions_a)
+        steps_b, time_b = self.get_steps_and_time(directions_b)
 
         total_time = time_a + time_b
 
@@ -109,36 +109,22 @@ class Meeting(models.Model):
             if len(to_try) < 20:
                 to_try.append(v['address'])
 
-<<<<<<< HEAD
-        matrix_a = self.get_matrix_via_car(gmaps, address1, to_try)
-        matrix_b = self.get_matrix_via_car(gmaps, address2, to_try)
+        matrix_a = self.get_matrix(gmaps, address1, mode1, to_try)
+        matrix_b = self.get_matrix(gmaps, address2, mode2, to_try)
 
         found_result, rv = self.get_results(matrix_a, matrix_b, gmaps)
-        if found_result:
-#             print("**results**")
-#             print(rv)
-            final = self.map_addresses(rv, potential_dest)
-            for d, v in final.items():
-                dest = Destination.objects.create(address = d, a_time = v['a_mins'], b_time = v['b_mins'],
-                    latlng = v['latlng'], name = v['name'], place_id = v['place_id'])
-=======
-        matrix_a = get_matrix(gmaps, address1, mode1, to_try)
-        matrix_b = get_matrix(gmaps, address2, mode2, to_try)
-
-        found_result, rv = get_results(matrix_a, matrix_b, gmaps)
 
         #Step 3: If good results found, create and add destination objects.
         #Otherwise, return None and try again.
         if found_result:
-            final = map_addresses(rv, potential_dest)
-            for d in final.keys():
-                dest = Destination.object.create(
-                    address = d, a_time = d['a_mins'],
-                    b_time = d['b_mins'],
-                    latlng = d['latlng'],
-                    name = d['name'],
-                    place_id = d['place_id'])
->>>>>>> 1354a052df89deefa90536358fbda2a2b8babf74
+            final = self.map_addresses(rv, potential_dest)
+            for d, v in final.items():
+                dest = Destination.objects.create(
+                    address = d, a_time = v['a_mins'],
+                    b_time = v['b_mins'],
+                    latlng = v['latlng'],
+                    name = v['name'],
+                    place_id = v['place_id'])
                 dest.save()
                 self.destinations.add(dest)
         else:
@@ -148,26 +134,14 @@ class Meeting(models.Model):
         '''
         returns a tuple of potential destinations (dicts) and list of latlongs
         '''
-<<<<<<< HEAD
-        #returns pseudo json and dicts
-        #self, client, origin, destination, mode='transit'
-        directions = self.get_directions(gmaps, address1, address2)
-        #returns tuple (substeps, time)
-        steps, time = self.get_steps_and_time(directions)
         #returns latlongs
         midpoint = self.get_midpoint(steps, time)
-        places_dict = {'key': apikey, 'location': midpoint, 'rankby': 'distance', 'types': self.business_type}
-        latlngs, dest_dict = self.get_places(places_dict, gmaps)
-=======
-        #returns latlongs
-        midpoint = get_midpoint(steps, time)
         places_dict = {
             'key': apikey,
             'location': midpoint,
             'rankby': 'distance',
             'types': self.business_type}
-        latlngs, dest_dict = get_places(places_dict, gmaps)
->>>>>>> 1354a052df89deefa90536358fbda2a2b8babf74
+        latlngs, dest_dict = self.get_places(places_dict, gmaps)
         return latlngs, dest_dict
 
 
@@ -206,15 +180,11 @@ class Meeting(models.Model):
         s = str(new_lat) + "," + str(new_lng)
         return s
 
-<<<<<<< HEAD
+
 
     def get_directions(self, client, origin, destination, mode='transit'):
-        return client.directions(origin, destination, mode)
-=======
-    @staticmethod
-    def get_directions(client, origin, destination, mode='transit'):
         return client.directions(origin, destination, mode=mode)
->>>>>>> 1354a052df89deefa90536358fbda2a2b8babf74
+
 
 
     def get_steps_and_time(self, directions):
@@ -235,15 +205,9 @@ class Meeting(models.Model):
                 substeps.append(x)
         return substeps
 
-<<<<<<< HEAD
 
     def get_midpoint(self, steps, total_time):
-        target_time = total_time / 2
-=======
-    @staticmethod
-    def get_midpoint(steps, total_time):
         target_time = total_time / 4
->>>>>>> 1354a052df89deefa90536358fbda2a2b8babf74
         current_time = 0
         for step in steps:
             duration = step['duration']['value']
@@ -253,17 +217,11 @@ class Meeting(models.Model):
                 continue
             return self.bisect(target_time, current_time, step)
 
-<<<<<<< HEAD
 
-    def get_places(self, args, gmaps):
-        r = requests.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?", params = args)
-=======
-    @staticmethod
-    def get_places(args, gmaps):
+    def get_places(self,args, gmaps):
         r = requests.get(
             "https://maps.googleapis.com/maps/api/place/nearbysearch/json?",
             params = args)
->>>>>>> 1354a052df89deefa90536358fbda2a2b8babf74
         data = r.json()
         latlngs, dest_dict = self.parse_places(data, gmaps)
         return latlngs, dest_dict
@@ -284,21 +242,9 @@ class Meeting(models.Model):
             dest_dict[coords] = {'name': name, 'place_id': place_id, 'address': address}
         return rv, dest_dict
 
-<<<<<<< HEAD
 
-    def get_matrix_via_car(self, client, origins, destinations, mode='driving'):
-        matrix = client.distance_matrix(origins, destinations, mode)
-        return matrix
-
-    #via public transportation
-
-    def get_matrix_via_transit(self, client, origins, destinations, mode='transit'):
-        matrix = client.distance_matrix(origins, destinations)
-=======
-    @staticmethod
-    def get_matrix_(client, origins, destinations, mode='transit'):
+    def get_matrix_(self, client, origins, destinations, mode='transit'):
         matrix = client.distance_matrix(origins, destinations, mode=mode)
->>>>>>> 1354a052df89deefa90536358fbda2a2b8babf74
         return matrix
 
 

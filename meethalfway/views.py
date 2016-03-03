@@ -120,7 +120,7 @@ def participant_two(request, meeting_id):
 
 def results(request, meeting_id):
     meeting = models.Meeting.objects.get(trip_id = meeting_id)
-    destinations = meeting.destinations_set.all()
+    destinations = meeting.destinations.all()
 
     c = {
         'destinations': destinations,
