@@ -74,7 +74,7 @@ class Meeting(models.Model):
 
     def get_destinations(self):
         with open('apikeys.txt', 'r') as f:
-            apikey = f.readline()
+            apikey = f.readline().strip()
 
         gmaps = googlemaps.Client(key=apikey)
         address1 = self.participant_one.starting_location
