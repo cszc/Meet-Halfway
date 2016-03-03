@@ -4,7 +4,9 @@
 
 <div class = "container">
     <div class="row">
+        <div class='page-header'>
         <h1>Success! Your meeting has been saved.</h1>
+        </div>
         <p class="lead">Send your friend this code to invite them to enter their address:
             </br>
             <strong>{{uniq}}</strong>
@@ -22,29 +24,28 @@
             console.log(e);
         });
         </script>
-        <h4> <strong> Copy the Meeting ID: </strong> </h4>
-        <h4>
+        <h5> <strong> Copy the Meeting ID: </strong> </h5>
+
             <!-- Target -->
             <input id="copyid" value="{{uniq}}">
             <!-- Trigger -->
             <button class="btn" data-clipboard-target="#copyid">
+                <span class='glyphicon glyphicon-copy'></span>
                 <!-- img src="../static/clipboard/assets/noun_168961_cc.svg" alt="Copy to clipboard" -->
                 Copy to clipboard
             </button>
-        </h4>
         </br>
 
-        <h4> <strong> Or, feel free to copy and paste this message to send to your friend: </strong> </h4>
-        <p class="lead"><i>"Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io"</i></p>
+        <h5> <strong> Or, feel free to copy and paste this message to send to your friend: </strong> </h5>
+        <p><i>"Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io"</i></p>
         <!-- Target -->
-        <h4>
             <input id="fulltext" value="Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io">
 
             <!-- Trigger -->
             <button class="btn" data-clipboard-target="#fulltext">
+                <span class='glyphicon glyphicon-copy'></span>
                 Copy to clipboard
             </button>
-        </h4>
         <p>
             <h3>What now?</h3>
             <a class="btn btn-primary" href="/test/participant_two/{{uniq}}" role="button">Go to your Meeting</a> or

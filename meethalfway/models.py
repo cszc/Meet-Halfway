@@ -218,6 +218,8 @@ class Meeting(models.Model):
 
 
     def get_places(self,args, gmaps):
+        # use Requests instead of googlemaps package here because package requires
+        # a query string, which we don't want
         r = requests.get(
             "https://maps.googleapis.com/maps/api/place/nearbysearch/json?",
             params = args)
