@@ -62,5 +62,9 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
+#database
+*db.sqlite3
+*db.sqlit3
+
 #apikeys
 apikeys.txt
