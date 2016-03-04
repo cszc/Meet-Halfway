@@ -1,22 +1,31 @@
 {% extends "halfwayapp/base.html" %}
 {% load bootstrap %}
-
 {% block content %}
-<div class = "container">
+
+<div class="loader-outer hidden">
+    <div class="loader-wrapper"><p>Hold on tight! We're finding the best meeting places for you.</p></div>
+    <div class="loader-inner ball-zig-zag">
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<div class="container" id="part2-container">
     <div class="row">
-    <h1>Your friend has already submitted their address.</h1> 
-    <p class = "lead">Enter your starting point below.</p>
+        <h1>Your friend has already submitted their address.</h1>
+        <p class = "lead">Enter your starting point below.</p>
+    </div>
+    <div class="row">
+        <form method="post" class="form-horizontal" id="part2-form">
+            {% csrf_token %}
+            <table class="table-condensed">
+            {% for form in forms %}
+                {{ form|bootstrap }}
+            {% endfor %}
+            </table>
+            <input type="submit" name="PersonB_submit" value="Submit Address" class="btn btn-success"/>
+        </form>
+    </div>
 </div>
-</div>
-<div class="container">
-<div class="row">
-    <form method="post" class="form-horizontal">
-    {% csrf_token %}
-    <table class="table-condensed">
-    {% for form in forms %}
-        {{ form|bootstrap }}
-    {% endfor %}
-    </table>
-    <input type="submit" name="PersonB_submit" value="Submit Address" class="btn btn-success"/>
-</form>
+
 {% endblock %}

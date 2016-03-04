@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load staticfiles %}
+
 <div class = "container">
     <div class="row">
         <h1>Success! Your meeting has been saved.</h1>
@@ -11,17 +13,12 @@
             </br>
         </p>
 
-        <script src="../static/clipboard/dist/clipboard.min.js"></script>
+        <script src="{% static "clipboard/clipboard.min.js" %}"></script>
 
         <script>
         var clipboard = new Clipboard('.btn');
-        clipboard.on('success', function(e) {
-            console.log(e);
-        });
-        clipboard.on('error', function(e) {
-            console.log(e);
-        });
         </script>
+
         <h4> <strong> Copy the Meeting ID: </strong> </h4>
         <h4>
             <!-- Target -->

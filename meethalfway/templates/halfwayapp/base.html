@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 
-<html>
-  <head>
-  	<link href="{% static "bootstrap/css/bootstrap.min.css" %}"
-          rel="stylesheet" type='text/css' media="screen">
-  	<link href="{% static "bootstrap/css/logo-nav.css" %}"
-          rel="stylesheet" type='text/css' media="screen">
-
-<!--     <link href="{% static 'bootstrap/css/bootstrap.css' %}"
-          rel="stylesheet" media="screen"> -->
-
-
-  </head>
 <html lang="en">
 
 <head>
@@ -30,6 +18,9 @@
 
     <!-- Custom CSS -->
     <link href="{% static "bootstrap/css/logo-nav.css" %}" rel="stylesheet">
+
+    <!-- Our Custom CSS -->
+    <link href="{% static "css/stylesheet.css" %}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -89,11 +80,12 @@
         </div>
         <!-- /.row -->
     </footer>
+    <!-- jQuery -->
+    <script src="{% static "bootstrap/js/jquery.js" %}"></script>
 
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
-    <!-- jQuery -->
-    <script src="{% static "js/jquery.js" %}"></script>
 
+    <script src="{% static "js/loading.js" %}"></script>
     </div>
 </body>
 
