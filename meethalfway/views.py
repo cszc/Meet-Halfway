@@ -63,9 +63,9 @@ def home(request):
                 if valid_trip_id:
                     meeting = models.Meeting.objects.get(trip_id = valid_trip_id)
                     if not meeting.participant_two:
-                        return redirect('test:participant_two', valid_trip_id)
+                        return redirect('meethalfway:participant_two', valid_trip_id)
                     else:
-                        return redirect('test:results', valid_trip_id)
+                        return redirect('meethalfway:results', valid_trip_id)
                 else:
                     error = "You entered an invalid trip ID"
 
@@ -113,7 +113,7 @@ def participant_two(request, meeting_id):
             meeting.participant_two = part_obj
             meeting.save()
             meeting.get_destinations()
-            return redirect('test:results', meeting.trip_id)
+            return redirect('meethalfway:results', meeting.trip_id)
     address = AddAddress()
     participant = AddParticipant()
 
