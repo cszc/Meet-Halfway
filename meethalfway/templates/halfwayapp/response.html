@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load staticfiles %}
+
 <div class = "container">
     <div class="row">
         <div class='page-header'>
@@ -9,17 +11,12 @@
         </div>
         <p class="lead">Send your friend this code to invite them to enter their address:</p>
 
-        <script src="../static/clipboard/dist/clipboard.min.js"></script>
+        <script src="{% static "clipboard/clipboard.min.js" %}"></script>
 
         <script>
         var clipboard = new Clipboard('.btn');
-        clipboard.on('success', function(e) {
-            console.log(e);
-        });
-        clipboard.on('error', function(e) {
-            console.log(e);
-        });
-        </script>
+       </script>
+
             <!-- Target -->
             <input id="copyid" value="{{uniq}}">
             <!-- Trigger -->
@@ -34,8 +31,9 @@
         <textarea id='fulltext' rows="4" cols="50">Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io
         </textarea>
         <!-- Target -->
-<!--             <input id="fulltext" value="Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io">
- -->
+        <h4>
+            <input id="fulltext" value="Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io">
+
             <!-- Trigger -->
             <div>
             <button class="btn" data-clipboard-target="#fulltext">

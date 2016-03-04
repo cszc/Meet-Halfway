@@ -2,7 +2,15 @@
 {% load bootstrap %}
 
 {% block content %}
-<div class = "container">
+<div class="loader-outer hidden">
+    <div class="loader-wrapper"><p>Hold on tight! We're finding the best meeting places for you.</p></div>
+    <div class="loader-inner ball-zig-zag">
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<div class="container" id="part2-container">
     <div class="row">
         <div class='col-sm-12'>
         <div class='page-header'>
@@ -10,7 +18,7 @@
         </div>
         <p class = "lead">Enter your starting point below.</p>
         <div class="row">
-            <div class='col-sm-5'>
+            <div class='col-sm-5' id="part2-form">
                 <form method="post">
                 {% csrf_token %}
                 <table class="table">
@@ -25,5 +33,4 @@
     </div>
 </div>
 </div>
-
 {% endblock %}
