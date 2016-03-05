@@ -12,11 +12,11 @@ from . import models
 
 
 class EnterIDForm(forms.Form):
-    meeting_id = forms.CharField()
+    trip_id = forms.CharField()
     def validate_trip_id(self):
         cleaned_id = self.cleaned_data
-        if models.Meeting.objects.filter(trip_id = cleaned_id['meeting_id']):
-            return cleaned_id['meeting_id']
+        if models.Meeting.objects.filter(trip_id = cleaned_id['trip_id']):
+            return cleaned_id['trip_id']
         else:
             return None
             # raise forms.ValidationError("Please enter a valid Meeting Trip ID number.")
@@ -48,15 +48,16 @@ class AddMeeting(forms.ModelForm):
         }
 
 def home(request):
+    error = None
     if request.method == 'POST':
-        if "PersonA_submit" in request.POST:
+        if "participant_one_submit" in request.POST:
             address = AddAddress(request.POST)
             participant = AddParticipant(request.POST)
             meeting = AddMeeting(request.POST)
             if address.is_valid() and participant.is_valid() and meeting.is_valid():
-                c = personA(request, address, participant, meeting)
-                return render(request,'halfwayapp/response.html',c)
-        elif 'Enter_trip_id' in request.POST:
+                trip_id = participant_one(request, address, participant, meeting)
+                return redirect('meethalfway:new_meeting', trip_id)
+        elif 'enter_trip_id' in request.POST:
             trip_id = EnterIDForm(request.POST)
             if trip_id.is_valid():
                 valid_trip_id = trip_id.validate_trip_id()
@@ -67,24 +68,26 @@ def home(request):
                     else:
                         return redirect('meethalfway:results', valid_trip_id)
                 else:
-                    error = "You entered an invalid trip ID"
+                    error = True
 
     address = AddAddress()
     participant = AddParticipant()
     meeting = AddMeeting()
     trip_id = EnterIDForm()
-    error = None
+
 
     c = {
         'forms': [address, participant, meeting],
         'trip_id_form': trip_id,
-        # 'error' = error
+        'not_found' : error
     }
 
     return render(request, 'halfwayapp/home.html', c)
 
+def new_meeting(request, trip_id):
+    return render(request,'halfwayapp/response.html', {'uniq' : trip_id})
 
-def personA(request, address, participant, meeting):
+def participant_one(request, address, participant, meeting):
     address_obj = address.save()
     part_obj = participant.save()
     part_obj.starting_location = address_obj
@@ -94,13 +97,9 @@ def personA(request, address, participant, meeting):
     meeting_obj.trip_id = meeting_obj.random_words()
     meeting_obj.save()
 
-    c =  {
-        'uniq': meeting_obj.trip_id
-    }
+    return meeting_obj.trip_id
 
-    return c
-
-def participant_two(request, meeting_id):
+def participant_two(request, trip_id):
     if request.method == 'POST':
         address = AddAddress(request.POST)
         participant = AddParticipant(request.POST)
@@ -109,7 +108,7 @@ def participant_two(request, meeting_id):
             part_obj = participant.save()
             part_obj.starting_location = address_obj
             part_obj.save()
-            meeting = models.Meeting.objects.get(trip_id = meeting_id)
+            meeting = models.Meeting.objects.get(trip_id = trip_id)
             meeting.participant_two = part_obj
             meeting.save()
             meeting.get_destinations()
@@ -119,18 +118,18 @@ def participant_two(request, meeting_id):
 
     c = {
         'forms': [address, participant],
-        'uniq': meeting_id
+        'uniq': trip_id
     }
 
     return render(request, "halfwayapp/person2.html", c)
 
-def results(request, meeting_id):
-    meeting = models.Meeting.objects.get(trip_id = meeting_id)
+def results(request, trip_id):
+    meeting = models.Meeting.objects.get(trip_id = trip_id)
     destinations = meeting.destinations.all()
 
     c = {
         'destinations': destinations,
-        'meeting_id': meeting_id
+        'trip_id': trip_id
     }
     return render(request, "halfwayapp/results.html", c)
     # return HttpResponse("Results page")
