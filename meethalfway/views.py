@@ -126,13 +126,17 @@ def participant_two(request, trip_id):
 def results(request, trip_id):
     meeting = models.Meeting.objects.get(trip_id = trip_id)
     destinations = meeting.destinations.all()
-
+    best_dest = destinations[:1].get().latlng
+    lat = best_dest.split(",")[0]
+    lng = best_dest.split(",")[1]
+    print(lat, lng)
     c = {
         'destinations': destinations,
-        'trip_id': trip_id
+        'trip_id': trip_id,
+        'lat': lat,
+        'lng': lng
     }
     return render(request, "halfwayapp/results.html", c)
-    # return HttpResponse("Results page")
 
 def about(request):
     return render(request, "halfwayapp/about.html")
