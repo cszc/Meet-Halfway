@@ -1,18 +1,56 @@
 {% extends "halfwayapp/base.html" %}
 
 {% block content %}
-<div class = "container">
-    <div class="row">
-    <div class='page-header'>
-    <h1>Results</h1></div>
-    <p class='lead'>Here are your best meeting places:</p>
-    {% for destination in destinations %}
-    <div>
-      <h4><span class="glyphicon glyphicon-map-marker"></span>  {{ destination.name }}</h4>
-      <p>{{ destination.address }}</p>
-
-	</div>
-    {% endfor %}
-</div>
-
+<html>
+  <head>
+    <style>
+      #map {
+        width: 500px;
+        height: 400px;
+      }
+    </style>
+    <div class = "container">
+        <div class="row">
+        <div class='page-header'>
+        <h1>Results</h1></div>
+        <p class='lead'>Here are your best meeting places:</p>
+        {% for destination in destinations %}
+        <div class = "container">
+          <button id="{{ destination.latlng }}" class="dest" onClick="newLocation(this.id);"><h4><span class="glyphicon glyphicon-map-marker"></span>{{ destination.name }}</h4></button>
+          <p>{{ destination.address }}</p>
+      </div>
+        {% endfor %}
+    </div>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+    var map
+      function initMap() {
+        var mapDiv = document.getElementById('map');
+        map = new google.maps.Map(mapDiv, {
+          center: {lat: 44.540, lng: -78.546},
+          zoom: 17
+        });
+      }
+      function newLocation(latlng) {
+         var destlatlng = new google.maps.LatLng(latlng.split(",")[0], latlng.split(",")[1]);
+        //  var marker = new google.maps.Marker({
+        //      position: latlng,
+        //      map: map,
+        //      title: 'Hello World!'
+        //    })
+          map.panTo(
+              destlatlng);
+          var marker = new google.maps.Marker({
+              position: destlatlng,
+              map: map,
+              title: "dest"
+  })
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+  </body>
+</html>
 {% endblock %}
