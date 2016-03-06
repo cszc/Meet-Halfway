@@ -31,13 +31,16 @@
                 {{ form|bootstrap }}
             {% endfor %}
             </table>
-        <input type="submit" name="PersonA_submit" value="Submit" class="btn btn-default"/></input>
+        <input type="submit" name="participant_one_submit" value="Submit" class="btn btn-default"/></input>
         </form>
     </div>
     </div>
     </div>
     <div class="col-sm-4 col-sm-offset-1">
     <div class="panel panel-default">
+      {% if not_found %}
+      <div>Sorry, that meeting id does not exist!</div>
+      {% endif %}
         <div class="panel-heading"><h4>Already have a meeting started?</h4></div>
         <div class='panel-body'>
         <p>Enter your meeting id to add your address or view results.</p>
@@ -48,7 +51,7 @@
                 <table class="table">
                     {{ trip_id_form|bootstrap }}
                 </table>
-            <input type="submit" name="Enter_trip_id" value="Submit" class="btn btn-default"/>
+            <input type="submit" name="enter_trip_id" value="Submit" class="btn btn-default"/>
             </form>
         </div>
         </div>

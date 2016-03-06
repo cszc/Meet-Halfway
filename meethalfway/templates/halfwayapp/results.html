@@ -1,6 +1,7 @@
 {% extends "halfwayapp/base.html" %}
 
 {% block content %}
+<!-- <<<<<<< HEAD
 <div class = "container">
     <div class="row">
     <div class='page-header'>
@@ -15,5 +16,61 @@
     {% endfor %}
 </div>
 </div>
+======= -->
+<html>
+  <head>
+    <style>
+      #map {
+        width: 500px;
+        height: 400px;
+      }
+    </style>
+    <div class = "container">
+        <div class="row">
+        <div class='page-header'>
+        <h1>Results</h1></div>
+        <p class='lead'>Here are your best meeting places:</p>
+        {% for destination in destinations %}
+        <div class = "container">
+          <button id="{{ destination.latlng }}" class="dest" onClick="newLocation(this.id);">
+            <h4><span class="glyphicon glyphicon-map-marker"></span>{{ destination.name }}</h4>
+            <p>{{ destination.address }}</p></button>
+      </div>
+        {% endfor %}
+    </div>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+    var map
+      function initMap() {
+        var best_latlng = {lat: {{ lat }}, lng: {{ lng }}}
+        var mapDiv = document.getElementById('map');
+        map = new google.maps.Map(mapDiv, {
+          center: best_latlng,
+          zoom: 18
+        });
+        var marker = new google.maps.Marker({
+          position: best_latlng,
+          map: map
+        });
+      }
+// >>>>>>> 61a8f0b7be5477235e57baf9e0c157530fc4a605
 
+      function newLocation(latlng) {
+         var destlatlng = new google.maps.LatLng(latlng.split(",")[0], latlng.split(",")[1]);
+          map.panTo(
+              destlatlng);
+          var marker = new google.maps.Marker({
+              position: destlatlng,
+              map: map,
+              title: "dest"
+  })
+}
+      google.maps.event.addDomListener(document, 'load', function(){initMap(41.86395, -87.62374);})
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+  </body>
+</html>
 {% endblock %}
