@@ -57,7 +57,8 @@ class Meeting(models.Model):
         max_length = 100, null=True, blank = True)
     destinations = models.ManyToManyField(
         Destination, blank = True)
-
+    share_location = models.BooleanField(default = False)
+    
     def set_participant_two(self, participant):
         self.participant_two = participant
 
