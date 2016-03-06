@@ -16,8 +16,9 @@
         <p class='lead'>Here are your best meeting places:</p>
         {% for destination in destinations %}
         <div class = "container">
-          <button id="{{ destination.latlng }}" class="dest" onClick="newLocation(this.id);"><h4><span class="glyphicon glyphicon-map-marker"></span>{{ destination.name }}</h4></button>
-          <p>{{ destination.address }}</p>
+          <button id="{{ destination.latlng }}" class="dest" onClick="newLocation(this.id);">
+            <h4><span class="glyphicon glyphicon-map-marker"></span>{{ destination.name }}</h4>
+            <p>{{ destination.address }}</p></button>
       </div>
         {% endfor %}
     </div>
@@ -26,11 +27,16 @@
     <div id="map"></div>
     <script>
     var map
-      function initMap(lat, lng) {
+      function initMap() {
+        var best_latlng = {lat: {{ lat }}, lng: {{ lng }}}
         var mapDiv = document.getElementById('map');
         map = new google.maps.Map(mapDiv, {
-          center: {lat: lat, lng: lng},
+          center: best_latlng,
           zoom: 18
+        });
+        var marker = new google.maps.Marker({
+          position: best_latlng,
+          map: map
         });
       }
 

@@ -19,15 +19,11 @@ class EnterIDForm(forms.Form):
             return cleaned_id['trip_id']
         else:
             return None
-            # raise forms.ValidationError("Please enter a valid Meeting Trip ID number.")
-
-
 
 class AddAddress(forms.ModelForm):
     class Meta:
         model = models.Address
         fields = ["street", "city", "state", "zip_code"]
-
 
 
 class AddParticipant(forms.ModelForm):
@@ -42,9 +38,10 @@ class AddParticipant(forms.ModelForm):
 class AddMeeting(forms.ModelForm):
     class Meta:
         model = models.Meeting
-        fields = ["business_type"]
+        fields = ["business_type", "share_location"]
         widgets = {
             'business_type': forms.Select(),
+            'share_location': forms.CheckboxInput()
         }
 
 def home(request):
@@ -129,7 +126,7 @@ def results(request, trip_id):
     best_dest = destinations[:1].get().latlng
     lat = best_dest.split(",")[0]
     lng = best_dest.split(",")[1]
-    print(lat, lng)
+    print("These are the best destination lat lngs ", lat, lng)
     c = {
         'destinations': destinations,
         'trip_id': trip_id,
