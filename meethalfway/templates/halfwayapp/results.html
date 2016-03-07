@@ -30,17 +30,25 @@
         <div class='page-header'>
         <h1>Results</h1></div>
         <p class='lead'>Here are your best meeting places:</p>
+    </div>
+    <div class='row'>
+    <div class='col-sm-4'>
         {% for destination in destinations %}
-        <div class = "container">
+        <div class = "row">
           <button id="{{ destination.latlng }}" class="dest" onClick="newLocation(this.id);">
             <h4><span class="glyphicon glyphicon-map-marker"></span>{{ destination.name }}</h4>
             <p>{{ destination.address }}</p></button>
+        </br>
       </div>
+  </br>
         {% endfor %}
     </div>
-  </head>
-  <body>
+<!--   </head>
+  <body> -->
+  	<div class='col-sm-8'>
     <div id="map"></div>
+	</div>
+</div>
     <script>
     var map
       function initMap() {
@@ -71,6 +79,6 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
         async defer></script>
-  </body>
-</html>
+<!--   </body>
+</html> -->
 {% endblock %}
