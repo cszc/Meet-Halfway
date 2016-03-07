@@ -14,38 +14,39 @@
             </div>
         </div>
     </header>
-<div class = "container">
-    <hr>
+<div class='container'>
+        <hr>
+
     <div class="row">
     <div class="col-sm-7">
         <div>
         <h2>Start a new meeting</h2>
         </div>
         <p>Enter your address and transit mode, then we'll generate a link for you to share with your friend.</p>
-        <div class="row">
-        <div class="col-sm-8">
-        <form method="post">
+        <hr>
+<!--         <div class="row">
+        <div class="col-sm-8"> -->
+        <form method="post" class="form-horizontal">
         {% csrf_token %}
             <table class='table'>
             {% for form in forms %}
-                {{ form|bootstrap }}
+                {{ form|bootstrap_horizontal }}
             {% endfor %}
             </table>
+        <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-2">
         <input type="submit" name="participant_one_submit" value="Submit" class="btn btn-default"/></input>
+        </div></div>
         </form>
     </div>
-    </div>
-    </div>
     <div class="col-sm-4 col-sm-offset-1">
+        <br>
+        <br>
     <div class="panel panel-default">
-      {% if not_found %}
-      <div>Sorry, that meeting id does not exist!</div>
-      {% endif %}
         <div class="panel-heading"><h4>Already have a meeting started?</h4></div>
         <div class='panel-body'>
         <p>Enter your meeting id to add your address or view results.</p>
-        <div class='row'>
-        <div class="col-sm-8">
+
             <form method="post">
             {% csrf_token %}
                 <table class="table">
@@ -53,8 +54,12 @@
                 </table>
             <input type="submit" name="enter_trip_id" value="Submit" class="btn btn-default"/>
             </form>
-        </div>
-        </div>
+
+        {% if not_found %}
+        <br>
+        <div class="alert alert-danger" role="alert"><strong>Whoops!</strong> That meeting ID does not exist.</div>
+        {% endif %}
+
     </div>
     </div>
     </div>
