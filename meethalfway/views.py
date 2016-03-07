@@ -89,10 +89,15 @@ def new_meeting(request, trip_id):
 
 def participant_one(request, address, participant, meeting):
     address_obj = address.save()
-    verify, suggestion = address_obj.verify_address()
+    verify, suggestion,verified_address_dict = address_obj.verify_address()
     if verify:
+        verified_address = models.Address(street = verified_address_dict['address'], city = verified_address_dict['city'], \
+        state = verified_address_dict['state'], zip_code = verified_address_dict['zip5'])
+        verified_address.save()
+        address_obj.delete()
+
         part_obj = participant.save()
-        part_obj.starting_location = address_obj
+        part_obj.starting_location = verified_address
         part_obj.save()
         meeting_obj = meeting.save()
         meeting_obj.participant_one = part_obj
@@ -110,11 +115,15 @@ def participant_two(request, trip_id):
         if address.is_valid() and participant.is_valid():
             address_obj = address.save()
 
-            verify, suggestion = address_obj.verify_address()
+            verify, suggestion, verified_address_dict = address_obj.verify_address()
             if verify:
+                verified_address = models.Address(street = verified_address_dict['address'], city = verified_address_dict['city'], \
+                state = verified_address_dict['state'], zip_code = verified_address_dict['zip5'])
+                verified_address.save()
+                address_obj.delete()
 
                 part_obj = participant.save()
-                part_obj.starting_location = address_obj
+                part_obj.starting_location = verified_address
                 part_obj.save()
                 meeting = models.Meeting.objects.get(trip_id = trip_id)
                 meeting.participant_two = part_obj

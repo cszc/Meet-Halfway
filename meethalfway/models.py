@@ -41,7 +41,7 @@ class Address(models.Model):
                 suggestion = "Check Your City Field Entry"
 
 
-        return verify, suggestion
+        return verify, suggestion, address
     def __str__(self):
         return "%s %s %s %s" % (self.street, self.city, self.state, self.zip_code)
 
