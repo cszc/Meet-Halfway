@@ -52,8 +52,11 @@ def home(request):
             participant = AddParticipant(request.POST)
             meeting = AddMeeting(request.POST)
             if address.is_valid() and participant.is_valid() and meeting.is_valid():
-                trip_id = participant_one(request, address, participant, meeting)
-                return redirect('meethalfway:new_meeting', trip_id)
+                trip_id, suggestion = participant_one(request, address, participant, meeting)
+                if trip_id != None:
+                    return redirect('meethalfway:new_meeting', trip_id)
+                else:
+                    return redirect('meethalfway:address_error1',suggestion)
         elif 'enter_trip_id' in request.POST:
             trip_id = EnterIDForm(request.POST)
             if trip_id.is_valid():
@@ -86,15 +89,24 @@ def new_meeting(request, trip_id):
 
 def participant_one(request, address, participant, meeting):
     address_obj = address.save()
-    part_obj = participant.save()
-    part_obj.starting_location = address_obj
-    part_obj.save()
-    meeting_obj = meeting.save()
-    meeting_obj.participant_one = part_obj
-    meeting_obj.trip_id = meeting_obj.random_words()
-    meeting_obj.save()
+    verify, suggestion,verified_address_dict = address_obj.verify_address()
+    if verify:
+        verified_address = models.Address(street = verified_address_dict['address'], city = verified_address_dict['city'], \
+        state = verified_address_dict['state'], zip_code = verified_address_dict['zip5'])
+        verified_address.save()
+        address_obj.delete()
 
-    return meeting_obj.trip_id
+        part_obj = participant.save()
+        part_obj.starting_location = verified_address
+        part_obj.save()
+        meeting_obj = meeting.save()
+        meeting_obj.participant_one = part_obj
+        meeting_obj.trip_id = meeting_obj.random_words()
+        meeting_obj.save()
+    else:
+        return None, suggestion
+
+    return meeting_obj.trip_id, None
 
 def participant_two(request, trip_id):
     if request.method == 'POST':
@@ -102,13 +114,23 @@ def participant_two(request, trip_id):
         participant = AddParticipant(request.POST)
         if address.is_valid() and participant.is_valid():
             address_obj = address.save()
-            part_obj = participant.save()
-            part_obj.starting_location = address_obj
-            part_obj.save()
-            meeting = models.Meeting.objects.get(trip_id = trip_id)
-            meeting.participant_two = part_obj
-            meeting.save()
-            meeting.get_destinations()
+
+            verify, suggestion, verified_address_dict = address_obj.verify_address()
+            if verify:
+                verified_address = models.Address(street = verified_address_dict['address'], city = verified_address_dict['city'], \
+                state = verified_address_dict['state'], zip_code = verified_address_dict['zip5'])
+                verified_address.save()
+                address_obj.delete()
+
+                part_obj = participant.save()
+                part_obj.starting_location = verified_address
+                part_obj.save()
+                meeting = models.Meeting.objects.get(trip_id = trip_id)
+                meeting.participant_two = part_obj
+                meeting.save()
+                meeting.get_destinations()
+            else:
+                return redirect('meethalfway:address_error2', trip_id, suggestion)
             return redirect('meethalfway:results', meeting.trip_id)
     address = AddAddress()
     participant = AddParticipant()
@@ -142,3 +164,18 @@ def about(request):
 
 def contact(request):
     return render(request, "halfwayapp/contact.html")
+    
+def address_error1(request, suggestion):
+    c = {
+        'suggestion': suggestion
+    }
+
+    return render(request, "halfwayapp/address_error1.html", c)
+
+def address_error2(request, trip_id, suggestion):
+    c = {
+        'trip_id': trip_id,
+        'suggestion': suggestion
+
+    }
+    return render(request, "halfwayapp/address_error2.html", c)

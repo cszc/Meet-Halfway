@@ -1,0 +1,19 @@
+
+{% extends "halfwayapp/base.html" %}
+{% block content %}
+
+{% load staticfiles %}
+
+<div class = "container">
+    <div class="row">
+        <div class='page-header'>
+        <h1>Sorry, we could not match this address</h1>
+        <h2>{{suggestion}}</h2>
+        </div>
+       
+            <h3>Please go back and try again</h3>
+            <a class="btn btn-primary" href="/participant_two/{{trip_id}}" role="button">Go back to your form</a> 
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -6,12 +6,42 @@ import re
 import googlemaps
 import csv
 from random_words import RandomWords
+import pyusps_modified
 
 class Address(models.Model):
     street = models.CharField(max_length = 64)
     city = models.CharField(max_length = 64)
     state = models.CharField(max_length = 2)
     zip_code = models.CharField(max_length = 5)
+
+    def verify_address(self):
+        verify = True
+        address = ""
+        suggestion = ""
+        with open('uspskey.txt', 'r') as f:
+            uspskey = f.readline().strip()
+        addr = dict([
+            ('address', self.street),
+            ('city', self.city),
+            ('state', self.state),
+            ('zip_code', self.zip_code),
+            ])
+        try:
+            address = pyusps_modified.verify(uspskey,addr)
+
+        except ValueError as e:
+            verify = False
+            if "-2147219402" in str(e):
+                suggestion = "Check Your State Field Entry"
+            if "-2147219403" in str(e): 
+                suggestion = "This Address Matches More Than One Address. Please Use a Different Address."
+            if "-2147219401" in str(e):
+                suggestion = "Could Not Find an Address at This Location."
+            if  "-2147219400" in str(e):
+                suggestion = "Check Your City Field Entry"
+
+
+        return verify, suggestion, address
     def __str__(self):
         return "%s %s %s %s" % (self.street, self.city, self.state, self.zip_code)
 

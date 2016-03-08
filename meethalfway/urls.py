@@ -19,12 +19,15 @@ from . import views
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
+    # url(r'home', views.home, name='home'),
     url(r'^new_meeting/(?P<trip_id>[a-z]+-[a-z]+-[a-z]+)', views.new_meeting, name = 'new_meeting'),
     url(r'^participant_two/(?P<trip_id>[a-z]+-[a-z]+-[a-z]+)', views.participant_two, name = 'participant_two'),
     url(r'^results/(?P<trip_id>[a-z]+-[a-z]+-[a-z]+)', views.results, name = 'results'),
+    url(r'^address_error1/(?P<suggestion>.*)', views.address_error1, name = 'address_error1'),
+    url(r'^address_error2/(?P<trip_id>[a-z]+-[a-z]+-[a-z]+)(?P<suggestion>.*)', views.address_error2, name = 'address_error2'),
     url(r'^about', views.about, name='about'),
     url(r'^contact', views.contact, name='contact'),
-    url(r'$', views.home, name='home')
+    url(r'$', views.home, name='home'),
 
 ]
 # urlpatterns += staticfiles_urlpatterns()
