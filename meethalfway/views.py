@@ -122,7 +122,9 @@ def participant_two(request, trip_id):
 
 def results(request, trip_id):
     meeting = models.Meeting.objects.get(trip_id = trip_id)
-    destinations = meeting.destinations.all()
+    # destinations = meeting.destinations.all()
+    d = meeting.destinations.order_by('score')
+    destinations = d.reverse()
     best_dest = destinations[:1].get().latlng
     lat = best_dest.split(",")[0]
     lng = best_dest.split(",")[1]

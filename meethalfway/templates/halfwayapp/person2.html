@@ -19,14 +19,17 @@
         <p class = "lead">Enter your starting point below.</p>
         <div class="row">
             <div class='col-sm-5' id="part2-form">
-                <form method="post">
+                <form method="post" class="form-horizontal">
                 {% csrf_token %}
                 <table class="table">
                 {% for form in forms %}
-                    {{ form|bootstrap }}
+                    {{ form|bootstrap_horizontal }}
                 {% endfor %}
                 </table>
+                <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
                 <input type="submit" name="PersonB_submit" value="Submit Address" class="btn btn-default"/>
+            </div></div>
                 </form>
             </div>
         </div>

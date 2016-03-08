@@ -1,22 +1,7 @@
 {% extends "halfwayapp/base.html" %}
 
 {% block content %}
-<!-- <<<<<<< HEAD
-<div class = "container">
-    <div class="row">
-    <div class='page-header'>
-    <h1>Results</h1></div>
-    <p class='lead'>Here are your best meeting places:</p>
-    {% for destination in destinations %}
-    <div>
-      <h4><span class="glyphicon glyphicon-map-marker"></span>  {{ destination.name }}</h4>
-      <p>{{ destination.address }}</p>
 
-	</div>
-    {% endfor %}
-</div>
-</div>
-======= -->
 <html>
   <head>
     <style>
@@ -32,20 +17,22 @@
         <p class='lead'>Here are your best meeting places:</p>
     </div>
     <div class='row'>
-    <div class='col-sm-4'>
+    <div class='col-sm-5'>
         {% for destination in destinations %}
         <div class = "row">
-          <button id="{{ destination.latlng }}" class="dest" onClick="newLocation(this.id);">
-            <h4><span class="glyphicon glyphicon-map-marker"></span>{{ destination.name }}</h4>
-            <p>{{ destination.address }}</p></button>
+            <h4><span class="glyphicon glyphicon-map-marker"></span> {{ destination.name }}</h4>
+            <ul class="list-unstyled">
+            <li><h5>{{ destination.address }}</h5></li>
+            <li>Fairness score: {{ destination.score }}</li>
+            <li>Approximate travel time: {{ destination.avg_time }} mins</li>
+          </ul>
+            <button id="{{ destination.latlng }}" class="btn btn-default btn-xs" onClick="newLocation(this.id);">View on map</button>
         </br>
       </div>
-  </br>
+      </br>
         {% endfor %}
     </div>
-<!--   </head>
-  <body> -->
-  	<div class='col-sm-8'>
+  	<div class='col-sm-7'>
     <div id="map"></div>
 	</div>
 </div>
@@ -63,7 +50,6 @@
           map: map
         });
       }
-// >>>>>>> 61a8f0b7be5477235e57baf9e0c157530fc4a605
 
       function newLocation(latlng) {
          var destlatlng = new google.maps.LatLng(latlng.split(",")[0], latlng.split(",")[1]);

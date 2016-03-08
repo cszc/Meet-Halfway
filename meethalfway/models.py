@@ -38,6 +38,8 @@ class Destination(models.Model):
     latlng = models.CharField(max_length = 64, null=True, blank = True)
     name = models.CharField(max_length = 64, null=True, blank = True)
     place_id = models.CharField(max_length = 64, null=True, blank = True)
+    score = models.CharField(max_length = 3, null=True, blank = True)
+    avg_time = models.CharField(max_length = 3, null=True, blank = True)
 
 class Meeting(models.Model):
     BUSINESS_TYPES = (
@@ -125,7 +127,9 @@ class Meeting(models.Model):
                     b_time = v['b_mins'],
                     latlng = v['latlng'],
                     name = v['name'],
-                    place_id = v['place_id'])
+                    place_id = v['place_id'],
+                    score = round(v['score']),
+                    avg_time = round((v['a_mins'] + v['b_mins'])/2))
                 dest.save()
                 self.destinations.add(dest)
         else:
@@ -164,7 +168,8 @@ class Meeting(models.Model):
                 "name": dests[v]['name'],
                 'place_id': dests[v]['place_id'],
                 'a_mins': results[k]['a_mins'],
-                'b_mins': results[k]['b_mins']}
+                'b_mins': results[k]['b_mins'],
+                'score': 100 - (results[k]['score'] * 100)}
         return final_rv
 
 
