@@ -77,3 +77,12 @@
     padding: 2em;
     margin-bottom: 20%;
 }
+.question {
+    background-color: yellow;
+    padding: 10px;
+    display: none;
+}
+    
+span:hover + div {
+    display: block;
+}

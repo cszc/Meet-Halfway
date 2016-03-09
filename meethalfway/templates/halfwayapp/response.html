@@ -7,24 +7,27 @@
 <div class = "container">
     <div class="row">
         <div class='page-header'>
-        <h1>Alright! You're halfway there.</h1>
+        <h2>Alright! You're almost halfway there.</h2>
         </div>
-        <div class='row'>
-            <div class='col-sm-4  panel panel-default'>
-            <h4 class='text-center'><span class="glyphicon glyphicon-check"></span></h4><h5 class='text-center'>1. Enter first address</h5>
+    <div class="row">
+        <div class='col-sm-3'>
+            <h4 class='text-center'><span class="glyphicon glyphicon-check"></span></h4><h5 class='text-center'>1. Enter your starting point</h5>
         </div>
-    </hr>
-        <div class='col-sm-4'>
-                <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
-            <h5 class='text-center'>2. Enter second address</h5>
+        <div class='col-sm-3 panel panel-default'>
+            <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
+            <h5 class='text-center'>2. Share link with your friend</h5>
         </div>
-        <div class='col-sm-4'>
-                <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
-            <h5 class='text-center'>3. View results</h5>
+        <div class='col-sm-3'>
+            <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
+            <h5 class='text-center'>3. Friend enters their address</h5>
+        </div>
+        <div class='col-sm-3'>
+            <h4 class='text-center'><span class="glyphicon glyphicon glyphicon-map-marker"></span></h4>
+            <h5 class='text-center'>4. View your results</h5>
         </div>
     </div>
     <hr>
-        <p class="lead">Now we just need your friend to enter their information. Send them this code to invite them to add their address:</p>
+        <p class="lead">Send your friend this code to invite them to add their address (make sure you save it for yourself too!):</p>
 
         <script src="{% static "clipboard/clipboard.min.js" %}"></script>
 
@@ -55,7 +58,7 @@
             </button>
             </div>
             <h3>What now?</h3>
-            <a class="btn btn-primary" href="/participant_two/{{uniq}}" role="button">Go to your Meeting</a> or
+            <a class="btn btn-primary" href="/participant_two/{{uniq}}" role="button">Go to your meeting</a> or
             <a class="btn-link" href="/home.html" role="button">return to the homepage.</a>
         </p>
     </div>
