@@ -15,17 +15,30 @@
         </div>
     </header>
 <div class='container'>
-        <hr>
-
+    <div class='page-header'>
+    <h2>Get started</h2>
+    </div>
     <div class="row">
-    <div class="col-sm-7">
-        <div>
-        <h2>Start a new meeting</h2>
+        <div class='col-sm-3  panel panel-default'>
+            <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4><h5 class='text-center'>1. Enter your starting point</h5>
         </div>
-        <p>Enter your address and transit mode, then we'll generate a link for you to share with your friend.</p>
-        <hr>
-<!--         <div class="row">
-        <div class="col-sm-8"> -->
+        <div class='col-sm-3'>
+            <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
+            <h5 class='text-center'>2. Share link with your friend</h5>
+        </div>
+        <div class='col-sm-3'>
+            <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
+            <h5 class='text-center'>3. Friend enters their address</h5>
+        </div>
+        <div class='col-sm-3'>
+            <h4 class='text-center'><span class="glyphicon glyphicon glyphicon-map-marker"></span></h4>
+            <h5 class='text-center'>4. View your results</h5>
+        </div>
+    </div>
+    <hr>
+    <div class='row'>
+    <div class="col-sm-7">
+
         <form method="post" class="form-horizontal">
         {% csrf_token %}
             <table class='table'>
@@ -40,7 +53,7 @@
         </form>
     </div>
     <div class="col-sm-4 col-sm-offset-1">
-        <br>
+
         <br>
     <div class="panel panel-default">
         <div class="panel-heading"><h4>Already have a meeting started?</h4></div>
