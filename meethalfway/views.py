@@ -27,7 +27,6 @@ class AddAddress(forms.ModelForm):
         fields = ["street", "city", "state", "zip_code"]
 
 
-
 class AddParticipant(forms.ModelForm):
     class Meta:
         model = models.Participant
@@ -123,6 +122,7 @@ def participant_two(request, meeting_id):
 
     return render(request, "halfwayapp/person2.html", c)
 
+
 def results(request, meeting_id):
     meeting = models.Meeting.objects.get(trip_id = meeting_id)
     destinations = meeting.destinations.all()
@@ -134,8 +134,10 @@ def results(request, meeting_id):
     return render(request, "halfwayapp/results.html", c)
     # return HttpResponse("Results page")
 
+
 def about(request):
     return render(request, "halfwayapp/about.html")
+
 
 def contact(request):
     return render(request, "halfwayapp/contact.html")

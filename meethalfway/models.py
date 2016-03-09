@@ -55,9 +55,6 @@ class Participant(models.Model):
     starting_location = models.ForeignKey(Address, null=True, blank = True)
     transit_mode = models.CharField(max_length = 70, choices = TRANSIT_TYPES)
 
-    # def __str__(self):
-    #     return "%s %s" % (self.starting_location, self.transit_mode)
-
     def get_id(self):
         return self.id
 
@@ -152,8 +149,6 @@ class Meeting(models.Model):
         directions_a = self.get_directions(gmaps, address1, address2, mode=mode1)
         directions_b = self.get_directions(gmaps, address2, address1, mode=mode2)
 
-        #would be great if this and directions were stored in Part. Class
-        #returns typle (substeps, time)
         steps_a, time_a = self.get_steps_and_time(directions_a)
         steps_b, time_b = self.get_steps_and_time(directions_b)
 
