@@ -10,7 +10,6 @@ from django import forms
 from . import models
 
 
-
 class EnterIDForm(forms.Form):
     meeting_id = forms.CharField()
     def validate_trip_id(self):
@@ -22,12 +21,10 @@ class EnterIDForm(forms.Form):
             # raise forms.ValidationError("Please enter a valid Meeting Trip ID number.")
 
 
-
 class AddAddress(forms.ModelForm):
     class Meta:
         model = models.Address
         fields = ["street", "city", "state", "zip_code"]
-
 
 
 class AddParticipant(forms.ModelForm):
@@ -46,6 +43,7 @@ class AddMeeting(forms.ModelForm):
         widgets = {
             'business_type': forms.Select(),
         }
+
 
 def home(request):
     if request.method == 'POST':
@@ -124,6 +122,7 @@ def participant_two(request, meeting_id):
 
     return render(request, "halfwayapp/person2.html", c)
 
+
 def results(request, meeting_id):
     meeting = models.Meeting.objects.get(trip_id = meeting_id)
     destinations = meeting.destinations.all()
@@ -135,8 +134,10 @@ def results(request, meeting_id):
     return render(request, "halfwayapp/results.html", c)
     # return HttpResponse("Results page")
 
+
 def about(request):
     return render(request, "halfwayapp/about.html")
+
 
 def contact(request):
     return render(request, "halfwayapp/contact.html")
