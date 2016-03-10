@@ -8,11 +8,6 @@ import csv
 from random_words import RandomWords
 import pyusps_modified
 
-with open('apikeys.txt', 'r') as f:
-    APIKEY = f.readline().strip()
-
-GMAP = googlemaps.Client(key=APIKEY)
-
 class Address(models.Model):
     street = models.CharField(max_length = 64)
     city = models.CharField(max_length = 64)
@@ -37,14 +32,15 @@ class Address(models.Model):
         except ValueError as e:
             verify = False
             if "-2147219402" in str(e):
-                suggestion = "Check Your State Field Entry"
-            if "-2147219403" in str(e):
-                suggestion = "This Address Matches More Than One Address. Please Use a Different Address."
+                suggestion = "Check your state field entry"
+            if "-2147219403" in str(e): 
+                suggestion = "This address matches more than one address. Please use a different address."
             if "-2147219401" in str(e):
-                suggestion = "Could Not Find an Address at This Location."
+                suggestion = "No address found at this location."
             if  "-2147219400" in str(e):
-                suggestion = "Check Your City Field Entry"
+                suggestion = "Check your city field entry"
 
+\
         return verify, suggestion, address
 
     def __str__(self):
@@ -59,6 +55,7 @@ class Participant(models.Model):
         )
     starting_location = models.ForeignKey(Address, null=True, blank = True)
     transit_mode = models.CharField(max_length = 70, choices = TRANSIT_TYPES)
+
 
     def get_id(self):
         return self.id
@@ -77,9 +74,7 @@ class Meeting(models.Model):
     BUSINESS_TYPES = (
         ("cafe", "Cafe"),
         ("bar", "Bar"),
-        ("restaurant", "Restaurant"),
-        ("museum", "Museum"),
-        ("park", "Park")
+        ("restaurant", "Restaurant")
         )
     participant_one = models.ForeignKey(
         Participant, related_name = 'participant_one', null = True, blank =  True)
@@ -92,7 +87,7 @@ class Meeting(models.Model):
     destinations = models.ManyToManyField(
         Destination, blank = True)
     share_location = models.BooleanField(default = False)
-
+    
     def set_participant_two(self, participant):
         self.participant_two = participant
 
@@ -326,7 +321,7 @@ class Meeting(models.Model):
             else:
                 this_score = 1 - (b_time/a_time)
             scores[address_i] = {
-                'a_mins': a_time /61,
+                'a_mins': a_time /60,
                 'b_mins': b_time/60,
                 'score': this_score}
             if this_score > best[SCORE]:
