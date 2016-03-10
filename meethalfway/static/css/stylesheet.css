@@ -80,7 +80,6 @@
 
 .page-header {
     font-family: 'Raleway', sans-serif;
-    font-weight: bold;
 }
 
 footer {
@@ -96,6 +95,28 @@ footer {
 .form-horizontal {
     padding-bottom: 4em;
 }
+
 .navbar {
     background-color: #031634;
+}
+
+div.container4 {
+    height: 4em;
+    position: relative
+}
+
+div.container4 p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5em;
+    padding-bottom: 1em;
+}
+
+.btn-primary {
+    background-color: #036564;
 }
