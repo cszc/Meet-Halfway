@@ -27,40 +27,60 @@
         </div>
     </div>
     <hr>
-        <p class="lead">Send your friend this code to invite them to add their address (make sure you save it for yourself too!):</p>
-
-        <script src="{% static "clipboard/clipboard.min.js" %}"></script>
-
-        <script>
-        var clipboard = new Clipboard('.btn');
-       </script>
-
-            <!-- Target -->
-            <input id="copyid" value="{{uniq}}">
-            <!-- Trigger -->
-            <button class="btn btn-default" data-clipboard-target="#copyid">
-                <span class='glyphicon glyphicon-copy'></span>
-                <!-- img src="../static/clipboard/assets/noun_168961_cc.svg" alt="Copy to clipboard" -->
-                Copy to clipboard
-            </button>
-        </br>
-        <br>
-        <p class='lead'>Or, email them this message:</p>
-        <!-- Target -->
-
-        <textarea id="fulltext" rows="4" cols="50">Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io
-        </textarea>
-            <!-- Trigger -->
-            <div>
-            <button class="btn btn-default" data-clipboard-target="#fulltext">
-                <span class='glyphicon glyphicon-copy'></span>
-                Copy to clipboard
-            </button>
-            </div>
-            <h3>What now?</h3>
-            <a class="btn btn-primary" href="/participant_two/{{uniq}}" role="button">Go to your meeting</a> or
-            <a class="btn-link" href="/home.html" role="button">return to the homepage.</a>
-        </p>
+    <div class="col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Send your friend this code (make sure you save it for yourself too!):</hr>
+        </div>
+        <div class="panel-body">
+            <script src="{% static "clipboard/clipboard.min.js" %}"></script>
+            <script>
+            var clipboard = new Clipboard('.btn');
+            </script>
+                <!-- Target -->
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <input class="form-control" id="copyid" value="{{uniq}}">
+                    </div>
+                    <!-- Trigger -->
+                    <button class="btn btn-default" data-clipboard-target="#copyid">
+                        <span class='glyphicon glyphicon-copy'></span>
+                        <!-- img src="../static/clipboard/assets/noun_168961_cc.svg" alt="Copy to clipboard" -->
+                        Copy to clipboard
+                    </button>
+                </div>
+        </div>
     </div>
+    <span>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Or, email them this message:</hr>
+        </div>
+        <div class="panel-body">
+            <!-- Target -->
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <textarea id="fulltext" rows="6" cols="40">Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io
+                    </textarea>
+                </div>
+            </div>
+            <!-- Trigger -->
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <button class="btn btn-default" data-clipboard-target="#fulltext">
+                        <span class='glyphicon glyphicon-copy'></span>
+                        Copy to clipboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h3>What now?</h3>
+        <a class="btn btn-primary" href="/participant_two/{{uniq}}" role="button">Go to your meeting</a> or
+        <a class="btn-link" href="/home.html" role="button">return to the homepage.</a>
+    </div>
+</div>
+</div>
 </div>
 {% endblock %}
