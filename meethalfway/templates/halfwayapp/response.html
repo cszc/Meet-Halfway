@@ -39,34 +39,41 @@
                     </script>
                         <!-- Target -->
                         <div class="row">
-                            <div class="col-sm-4 col-sm-offset-2">
-                                <input class="form-control" id="copyid" value="{{uniq}}">
+                            <div class="col-lg-12">
+                                <div class="input-group">
+                                    <input class="form-control" id="copyid" value="{{uniq}}">
+                                    <!-- Trigger -->
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" data-clipboard-target="#copyid">
+                                            <span class='glyphicon glyphicon-copy'></span>
+                                            <!-- img src="../static/clipboard/assets/noun_168961_cc.svg" alt="Copy to clipboard" -->
+                                            Copy to clipboard
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
-                            <!-- Trigger -->
-                            <button class="btn btn-default" data-clipboard-target="#copyid">
-                                <span class='glyphicon glyphicon-copy'></span>
-                                <!-- img src="../static/clipboard/assets/noun_168961_cc.svg" alt="Copy to clipboard" -->
-                                Copy to clipboard
-                            </button>
                         </div>
-                </div>
+                    </div>
             </div>
             <span>
+            <div class=container4>
+                    <p>or...</p>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Or, email them this message:</hr>
+                    <h3 class="panel-title">Email them this message:</hr>
                 </div>
                 <div class="panel-body">
                     <!-- Target -->
                     <div class="row">
-                        <div class="col-sm-4 col-sm-offset-2">
-                            <textarea id="fulltext" rows="6" cols="40">Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io
+                        <div class="col-lg-12">
+                            <textarea id="fulltext" rows="3" cols="60" style="width:100%">Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io
                             </textarea>
                         </div>
                     </div>
                     <!-- Trigger -->
                     <div class="row">
-                        <div class="col-sm-4 col-sm-offset-2">
+                        <div class="col-sm-4">
                             <button class="btn btn-default" data-clipboard-target="#fulltext">
                                 <span class='glyphicon glyphicon-copy'></span>
                                 Copy to clipboard

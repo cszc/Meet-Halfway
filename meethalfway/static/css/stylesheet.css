@@ -50,7 +50,7 @@
       -ms-transform: translate(-15px, -15px);
           transform: translate(-15px, -15px); }
   .ball-zig-zag > div {
-    background-color: #6c94e8;
+    background-color: #036564;
     width: 15px;
     height: 15px;
     border-radius: 100%;
@@ -72,12 +72,51 @@
     margin-top: 10%;
     text-align: center;
     font-size: 2em;
-    color: #6c94e8;
+    color: #036564;
     font-weight: bold;
     padding: 2em;
     margin-bottom: 20%;
 }
+
 .page-header {
     font-family: 'Raleway', sans-serif;
-    font-weight: bold;
+}
+
+footer {
+    background-color: #036564;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    color: #D3D3D3;
+    padding: .5em 6em .5em 6em;
+}
+
+.form-horizontal {
+    padding-bottom: 4em;
+}
+
+.navbar {
+    background-color: #031634;
+}
+
+div.container4 {
+    height: 4em;
+    position: relative
+}
+
+div.container4 p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5em;
+    padding-bottom: 1em;
+}
+
+.btn-primary {
+    background-color: #036564;
 }
