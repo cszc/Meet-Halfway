@@ -8,6 +8,11 @@ import csv
 from random_words import RandomWords
 import pyusps_modified
 
+with open('apikeys.txt', 'r') as f:
+    APIKEY = f.readline().strip()
+
+GMAPS = googlemaps.Client(key=APIKEY)
+
 class Address(models.Model):
     street = models.CharField(max_length = 64)
     city = models.CharField(max_length = 64)
@@ -33,7 +38,7 @@ class Address(models.Model):
             verify = False
             if "-2147219402" in str(e):
                 suggestion = "Check your state field entry"
-            if "-2147219403" in str(e): 
+            if "-2147219403" in str(e):
                 suggestion = "This address matches more than one address. Please use a different address."
             if "-2147219401" in str(e):
                 suggestion = "No address found at this location."
@@ -55,7 +60,6 @@ class Participant(models.Model):
         )
     starting_location = models.ForeignKey(Address, null=True, blank = True)
     transit_mode = models.CharField(max_length = 70, choices = TRANSIT_TYPES)
-
 
     def get_id(self):
         return self.id
@@ -87,7 +91,7 @@ class Meeting(models.Model):
     destinations = models.ManyToManyField(
         Destination, blank = True)
     share_location = models.BooleanField(default = False)
-    
+
     def set_participant_two(self, participant):
         self.participant_two = participant
 
