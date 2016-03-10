@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^address_error1/(?P<suggestion>.*)', views.address_error1, name = 'address_error1'),
     url(r'^address_error2/(?P<trip_id>[a-z]+-[a-z]+-[a-z]+)(?P<suggestion>.*)', views.address_error2, name = 'address_error2'),
     url(r'^about', views.about, name='about'),
-    url(r'^contact', views.contact, name='contact'),<<<<<<< HEAD
+    url(r'^contact', views.contact, name='contact'),
     url(r'^no_results', views.no_results, name='no_results'),
     url(r'$', views.home, name='home')
 
