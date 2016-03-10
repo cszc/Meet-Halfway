@@ -73,14 +73,10 @@
                     </button>
                 </div>
             </div>
-        </div>
+            <h3>What now?</h3>
+            <a class="btn btn-primary" href="/participant_two/{{uniq}}" role="button">Go to your meeting</a> or
+            <a class="btn-link" href="{% url 'meethalfway:home' %}" role="button">return to the homepage.</a>
+        </p>
     </div>
-    <div>
-        <h3>What now?</h3>
-        <a class="btn btn-primary" href="/participant_two/{{uniq}}" role="button">Go to your meeting</a> or
-        <a class="btn-link" href="/home.html" role="button">return to the homepage.</a>
-    </div>
-</div>
-</div>
 </div>
 {% endblock %}
