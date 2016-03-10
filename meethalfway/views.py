@@ -151,7 +151,7 @@ def participant_one(request, address, participant, meeting):
 def participant_two(request, trip_id):
     '''
     Handles information passed to create the second participant in a Meeting. If
-    a second participant has already been added, redirects to results. Otherwise, 
+    a second participant has already been added, redirects to results. Otherwise,
     creates a participant_two and calls get_destinations function.
     '''
     if request.method == 'POST':
@@ -178,9 +178,7 @@ def participant_two(request, trip_id):
                 meeting.participant_two = part_obj
                 meeting.save()
                 meeting.get_destinations()
-                count = meeting.destinations.count()
-                if count == 0:
-                    return redirect('meethalfway:no_results')
+
             else:
                 return redirect('meethalfway:address_error2', trip_id, suggestion)
             return redirect('meethalfway:results', trip_id)
@@ -201,8 +199,8 @@ def results(request, trip_id):
     '''
     meeting = models.Meeting.objects.get(trip_id = trip_id)
     d = meeting.destinations.order_by('score')
-    # if not d.exists():
-    #     return redirect
+    if not d.exists():
+        return redirect('meethalfway:no_results')
     destinations = d.reverse()
     best_dest = destinations[:1].get().latlng
     lat = best_dest.split(",")[0]
