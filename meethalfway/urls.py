@@ -27,7 +27,8 @@ urlpatterns = [
     url(r'^address_error2/(?P<trip_id>[a-z]+-[a-z]+-[a-z]+)(?P<suggestion>.*)', views.address_error2, name = 'address_error2'),
     url(r'^about', views.about, name='about'),
     url(r'^contact', views.contact, name='contact'),
-    url(r'$^', views.home, name='home'),
+    url(r'^no_results', views.no_results, name='no_results'),
+    url(r'$', views.home, name='home')
 
 ]
 # urlpatterns += staticfiles_urlpatterns()

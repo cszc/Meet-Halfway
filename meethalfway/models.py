@@ -117,6 +117,8 @@ class Meeting(models.Model):
         #returns a dict and total time
         potential_destinations = self.try_step_one(
             address1, address2, mode1, mode2)
+        if len(potential_destinations) == 0:
+            return None
 
         #Step 2: Get the times from each participant to each potential destination
         found_result, rv = self.try_step_two(
@@ -128,8 +130,8 @@ class Meeting(models.Model):
             self.try_step_three(rv, potential_destinations)
         else:
             new_midpoint = rv
-            potential_destinations2 = get_potential_destinations(midpoint = new_midpoint)
-            found_result2, rv2 = self.try_step_two(potential_destinations2)
+            potential_destinations2 = self.get_potential_destinations(midpoint = new_midpoint)
+            found_result2, rv2 = self.try_step_two(potential_destinations2, address1, address2, mode1, mode2)
             if found_result2:
                 self.try_step_three(rv2, potential_destinations2)
             else:
