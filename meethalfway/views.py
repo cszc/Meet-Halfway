@@ -53,10 +53,9 @@ class AddMeeting(forms.ModelForm):
     '''
     class Meta:
         model = models.Meeting
-        fields = ["business_type", "share_location"]
+        fields = ["business_type"]
         widgets = {
-            'business_type': forms.Select(),
-            'share_location': forms.CheckboxInput()
+            'business_type': forms.Select()
         }
 
 
