@@ -55,8 +55,7 @@ class AddMeeting(forms.ModelForm):
         model = models.Meeting
         fields = ["business_type", "share_location"]
         widgets = {
-            'business_type': forms.Select(),
-            'share_location': forms.CheckboxInput()
+            'business_type': forms.Select()
         }
 
 
