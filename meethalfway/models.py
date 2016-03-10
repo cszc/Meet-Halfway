@@ -11,7 +11,7 @@ import pyusps_modified
 with open('apikeys.txt', 'r') as f:
     APIKEY = f.readline().strip()
 
-GMAPS = googlemaps.Client(key=APIKEY)
+GMAP = googlemaps.Client(key=APIKEY)
 
 class Address(models.Model):
     street = models.CharField(max_length = 64)
