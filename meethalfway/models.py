@@ -78,7 +78,10 @@ class Meeting(models.Model):
     BUSINESS_TYPES = (
         ("cafe", "Cafe"),
         ("bar", "Bar"),
-        ("restaurant", "Restaurant")
+        ("restaurant", "Restaurant"),
+        ("book_store", "Book Store"),
+        ("gas_station", "Gas Station"),
+        ("library", "Library")
         )
     participant_one = models.ForeignKey(
         Participant, related_name = 'participant_one', null = True, blank =  True)

@@ -84,8 +84,8 @@
 
 footer {
     background-color: #036564;
-    position: absolute;
-    bottom: 0;
+/*    position: absolute;
+*/  bottom: 0;
     width: 100%;
     overflow: hidden;
     color: #D3D3D3;
