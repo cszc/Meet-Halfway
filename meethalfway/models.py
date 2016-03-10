@@ -40,7 +40,7 @@ class Address(models.Model):
             if  "-2147219400" in str(e):
                 suggestion = "Check your city field entry"
 
-\
+
         return verify, suggestion, address
 
     def __str__(self):
