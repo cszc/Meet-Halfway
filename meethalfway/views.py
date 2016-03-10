@@ -129,6 +129,9 @@ def participant_two(request, trip_id):
                 meeting.participant_two = part_obj
                 meeting.save()
                 meeting.get_destinations()
+                count = meeting.destinations.count()
+                if count == 0:
+                    return redirect('meethalfway:no_results')
             else:
                 return redirect('meethalfway:address_error2', trip_id, suggestion)
             return redirect('meethalfway:results', meeting.trip_id)
@@ -161,6 +164,9 @@ def results(request, trip_id):
 
 def about(request):
     return render(request, "halfwayapp/about.html")
+
+def no_results(request):
+    return render(request, "halfwayapp/no_results.html")
 
 def contact(request):
     return render(request, "halfwayapp/contact.html")
