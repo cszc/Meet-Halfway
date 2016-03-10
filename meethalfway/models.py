@@ -32,13 +32,13 @@ class Address(models.Model):
         except ValueError as e:
             verify = False
             if "-2147219402" in str(e):
-                suggestion = "Check Your State Field Entry"
+                suggestion = "Check your state field entry"
             if "-2147219403" in str(e): 
-                suggestion = "This Address Matches More Than One Address. Please Use a Different Address."
+                suggestion = "This address matches more than one address. Please use a different address."
             if "-2147219401" in str(e):
-                suggestion = "Could Not Find an Address at This Location."
+                suggestion = "No address found at this location."
             if  "-2147219400" in str(e):
-                suggestion = "Check Your City Field Entry"
+                suggestion = "Check your city field entry"
 
 
         return verify, suggestion, address
@@ -75,9 +75,7 @@ class Meeting(models.Model):
     BUSINESS_TYPES = (
         ("cafe", "Cafe"),
         ("bar", "Bar"),
-        ("restaurant", "Restaurant"),
-        ("museum", "Museum"),
-        ("park", "Park")
+        ("restaurant", "Restaurant")
         )
     participant_one = models.ForeignKey(
         Participant, related_name = 'participant_one', null = True, blank =  True)

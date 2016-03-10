@@ -12,11 +12,11 @@ from . import models
 
 
 class EnterIDForm(forms.Form):
-    trip_id = forms.CharField()
+    meeting_id = forms.CharField()
     def validate_trip_id(self):
         cleaned_id = self.cleaned_data
-        if models.Meeting.objects.filter(trip_id = cleaned_id['trip_id']):
-            return cleaned_id['trip_id']
+        if models.Meeting.objects.filter(trip_id = cleaned_id['meeting_id']):
+            return cleaned_id['meeting_id']
         else:
             return None
 
