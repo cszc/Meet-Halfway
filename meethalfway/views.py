@@ -161,6 +161,8 @@ def participant_two(request, trip_id):
             return redirect('meethalfway:results', trip_id)
         address = AddAddress(request.POST)
         participant = AddParticipant(request.POST)
+        if address == meeting.participant_one.starting_location:
+            return redirect('meethalfway:no_results')
         if address.is_valid() and participant.is_valid():
             address_obj = address.save()
             #USPS api used to validate the entered address

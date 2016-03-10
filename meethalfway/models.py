@@ -110,6 +110,9 @@ class Meeting(models.Model):
         address1 = str(self.participant_one.starting_location)
         address2 = str(self.participant_two.starting_location)
 
+        if address1==address2:
+            return None
+
         mode1 = self.participant_one.transit_mode
         mode2 = self.participant_two.transit_mode
 
