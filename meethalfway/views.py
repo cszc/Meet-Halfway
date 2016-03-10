@@ -10,7 +10,6 @@ from django import forms
 from . import models
 
 
-
 class EnterIDForm(forms.Form):
     trip_id = forms.CharField()
     def validate_trip_id(self):
@@ -19,6 +18,7 @@ class EnterIDForm(forms.Form):
             return cleaned_id['trip_id']
         else:
             return None
+
 
 class AddAddress(forms.ModelForm):
     class Meta:
@@ -164,7 +164,7 @@ def about(request):
 
 def contact(request):
     return render(request, "halfwayapp/contact.html")
-    
+
 def address_error1(request, suggestion):
     c = {
         'suggestion': suggestion
