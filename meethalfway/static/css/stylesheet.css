@@ -82,16 +82,6 @@
     font-family: 'Raleway', sans-serif;
 }
 
-footer {
-    background-color: #036564;
-/*    position: absolute;
-*/  bottom: 0;
-    width: 100%;
-    overflow: hidden;
-    color: #D3D3D3;
-    padding: .5em 6em .5em 6em;
-}
-
 .form-horizontal {
     padding-bottom: 4em;
 }
@@ -119,4 +109,30 @@ div.container4 p {
 
 .btn-primary {
     background-color: #036564;
+}
+
+#map {
+  width: 500px;
+  height: 400px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height - Extra for padding*/
+  margin-bottom: 60px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  background-color: #036564;
+  color: #D3D3D3;
+  padding: .5em 6em .5em 6em;
 }
