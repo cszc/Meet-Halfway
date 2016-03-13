@@ -109,6 +109,12 @@ class Meeting(models.Model):
         return w1 + "-" + w2 + "-" + w3
 
     def get_destinations(self):
+    '''
+    Creates up to 5 valid potential destinations for a Meeting object
+    that has two complete participants and starting addresses.
+
+    Returns None if no solution found
+    '''
         address1 = str(self.participant_one.starting_location)
         address2 = str(self.participant_two.starting_location)
 
@@ -144,6 +150,15 @@ class Meeting(models.Model):
 
 
     def get_target_time(self, time_a, time_b):
+    '''
+    Calculates the target travel time for each participant 
+
+    Inputs:
+        time_a: travel time (seconds) for first participant to second address
+        time_b: travel time for second participant to first address
+    Returns:
+        target time in seconds
+    '''
         total_time = time_a + time_b
         target_time = (time_a / total_time) * time_b
         return target_time
@@ -167,6 +182,8 @@ class Meeting(models.Model):
 
 
     def try_step_two(self, potential_dest, address1, address2, mode1, mode2):
+        '''
+        '''
         to_try = []
         for k, v in potential_dest.items():
             if len(to_try) < 20:
@@ -209,6 +226,15 @@ class Meeting(models.Model):
 
 
     def map_addresses(self, results, dests):
+        '''
+        Matches addresses from results with addresses in a dictionary
+        holding information about potential destinations.
+        Inputs:
+            results: dictionary
+            dests: dictionary
+        returns:
+            final_rv: dictionary
+        '''
         keys = {}
         for address in results.keys():
             short_ad = re.search('\w+[\w\s]+,', address)
