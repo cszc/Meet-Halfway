@@ -109,12 +109,12 @@ class Meeting(models.Model):
         return w1 + "-" + w2 + "-" + w3
 
     def get_destinations(self):
-    '''
-    Creates up to 5 valid potential destinations for a Meeting object
-    that has two complete participants and starting addresses.
+        '''
+        Creates up to 5 valid potential destinations for a Meeting object
+        that has two complete participants and starting addresses.
 
-    Returns None if no solution found
-    '''
+        Returns None if no solution found
+        '''
         address1 = str(self.participant_one.starting_location)
         address2 = str(self.participant_two.starting_location)
 
@@ -150,15 +150,15 @@ class Meeting(models.Model):
 
 
     def get_target_time(self, time_a, time_b):
-    '''
-    Calculates the target travel time for each participant 
+        '''
+        Calculates the target travel time for each participant 
 
-    Inputs:
-        time_a: travel time (seconds) for first participant to second address
-        time_b: travel time for second participant to first address
-    Returns:
-        target time in seconds
-    '''
+        Inputs:
+            time_a: travel time (seconds) for first participant to second address
+            time_b: travel time for second participant to first address
+        Returns:
+            target time in seconds
+        '''
         total_time = time_a + time_b
         target_time = (time_a / total_time) * time_b
         return target_time
