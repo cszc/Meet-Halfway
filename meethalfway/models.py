@@ -312,6 +312,14 @@ class Meeting(models.Model):
 
 
     def get_places(self, args):
+        '''
+        Given a starting lat-long, fetch nearby places that fit user requirements from the 
+        Google Places API
+        inputs:
+            args: dictionary of arguments for the query
+        outputs:
+            dest_dict: dictionary of potential destinations and associated information
+        '''
         # use Requests instead of googlemaps package here because package requires
         # a query string, which we don't want
         r = requests.get(
@@ -323,6 +331,15 @@ class Meeting(models.Model):
 
 
     def parse_places(self, places):
+        '''
+        Parse the output of a request to the Google Places API and 
+        pull out the latlong, address, name, and unique place_id for 
+        each potential destination
+        inputs:
+            places: json returned by request to Google Places API
+        outputs:
+            dest_dict: dictionary of potential destinations and associated information
+        '''
         dest_dict = {}
         for p in places["results"]:
             lat = p['geometry']['location']['lat']
@@ -330,6 +347,8 @@ class Meeting(models.Model):
             name = p['name']
             place_id = p['place_id']
             coords = str(lat) + "," + str(lng)
+            # Get the address by looking up the place ID from the Places API, since the nearby search
+            # doesn't return that information in the initial request
             r = GMAP.place(place_id)
             address = r['result']['formatted_address']
             dest_dict[coords] = {'name': name, 'place_id': place_id, 'address': address}
@@ -337,11 +356,29 @@ class Meeting(models.Model):
 
 
     def get_matrix(self, origins, destinations, mode='transit'):
+        '''
+        Calls the Google Distance Matrix API
+        inputs:
+            origins: 
+            destinations:
+            mode: defaults to transit
+        outputs:
+            matrix: object returned by Google Distance Matrix API
+        '''
         matrix = GMAP.distance_matrix(origins, destinations, mode=mode)
         return matrix
 
 
     def get_results(self, matrix_a, matrix_b):
+        '''
+        Score potential destinations and return the best results.
+        If no satisfactory solutions found, return the best-scoring lat-long
+        inputs:
+            matrix_a, matrix_b: results of calls to the Google Distance API
+        outputs:
+            found_result: Boolean (true if satisfactory solution found)
+            return_values: dictionary of destinations
+        '''
         ADDRESS = 0
         SCORE = 1
         scores = {}
