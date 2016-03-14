@@ -1,4 +1,7 @@
-'''This wrapper was taken from https://github.com/thelinuxkid/pyusps and modifed to use the urllib functions in python3 rather than python2'''
+'''
+This wrapper was taken from https://github.com/thelinuxkid/pyusps and 
+modifed to use the urllib functions in python3 rather than python2
+'''
 
 
 

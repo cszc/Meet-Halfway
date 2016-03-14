@@ -86,10 +86,14 @@ Bootstrap template: http://startbootstrap.com/template-overviews/logo-nav/ -->
         <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
         <script src="{% static "js/loading.js" %}"></script>
+        
+        <!-- This script enables the fairness score tooltip to display on the results page. 
+        Taken from http://getbootstrap.com/javascript/#tooltips -->
         <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
           })
         </script>
+
     </body>
 </html>

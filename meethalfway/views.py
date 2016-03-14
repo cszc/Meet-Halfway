@@ -222,6 +222,9 @@ def about(request):
     return render(request, "halfwayapp/about.html")
 
 def no_results(request):
+    '''
+    Displays an error page if no potential destinations were found.
+    '''
     return render(request, "halfwayapp/no_results.html")
 
 def contact(request):
