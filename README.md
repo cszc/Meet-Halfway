@@ -13,7 +13,13 @@ Other:
 - Requests
 - Json
 
-Also need to have a [Google Maps API](https://developers.google.com/maps/) key enabled for:
+You need to have a [Google Maps API](https://developers.google.com/maps/) key enabled for:
 - Google Directions
 - Google Matrix
 - Google Places
+
+Save the Google Maps key in a text file called "apikeys.txt" in two places: the top-level directory, and the folder meethalfway
+
+You will also need a key for the USPS Address Information API: https://www.usps.com/business/web-tools-apis/welcome.htm
+
+Save the USPS key in a text file called "uspskey.txt" in the top-level directory
