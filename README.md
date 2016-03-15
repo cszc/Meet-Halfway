@@ -1,6 +1,12 @@
 Meet Halfway
 ============
 
+We are using an environment manager (conda) to manage the requirements
+for this project.
+
+Please run "source activate pllc" prior to running any of our code to
+activate the environment
+
 About
 -----
 
@@ -15,6 +21,7 @@ Dependencies
 -	[Django](https://www.djangoproject.com/)
 -	[GoogleMaps](https://github.com/googlemaps/)
 -	[lxml](http://lxml.de/)
+-   [Conda](http://conda.pydata.org/docs/intro.html) (for environment management)
 -	[RandomWords](https://pypi.python.org/pypi/RandomWords/0.1.5)
 -	[Requests](http://docs.python-requests.org/en/master/)
 -	[PYUSPS](https://github.com/pmack1/pyusps)
@@ -24,6 +31,7 @@ Dependencies
 	-	time
 	-	re
 	-	csv
+	-   sqlite3
 -	CSS, HTML, and jQuery adapted from:
 	-	[clipboard.js](https://clipboardjs.com/)
 		-	for copying text to clipboard
@@ -41,6 +49,8 @@ You need to have a [Google Maps API](https://developers.google.com/maps/) key en
 Save the Google Maps key in a text file called "apikeys.txt" in two places: the top-level directory, and the folder meethalfway
 
 You will also need a key for the [USPS Address Information API](https://www.usps.com/business/web-tools-apis/welcome.htm). Save the USPS key in a text file called "uspskey.txt" in the top-level directory
+
+*Note all necessary API keys have been included in our virtual machine
 
 Banner Image
 ------------
