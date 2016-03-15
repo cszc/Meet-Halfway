@@ -1,16 +1,14 @@
-{% extends "halfwayapp/base.html" %}
-{% block content %}
+{# Displayed when none is returned from get_destinations call in meetings class #}
+{% extends "halfwayapp/base.html" %} {% block content %} {% load staticfiles %}
 
-{% load staticfiles %}
-
-<div class = "container">
-    <div class="row">
-        <div class='page-header'>
-        <h1>Whoops!</h1>
-    </div>
-            <h3>Sorry, we couldn't find any meeting points that matched your specifications. Please try again.</h3>
-            <a class="btn btn-primary" href="/home.html" role="button">Return to the homepage</a>
-    </div>
+<div class="container">
+	<div class="row">
+		<div class='page-header'>
+			<h1>Whoops!</h1>
+		</div>
+		<h3>Sorry, we couldn't find any meeting points that matched your specifications. Please try again.</h3>
+		<a class="btn btn-primary" href="/home.html" role="button">Return to the homepage</a>
+	</div>
 </div>
 
 {% endblock %}
