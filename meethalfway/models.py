@@ -142,6 +142,8 @@ class Meeting(models.Model):
         else:
             new_midpoint = rv
             potential_destinations2 = self.get_potential_destinations(midpoint = new_midpoint)
+            if len(potential_destinations) == 0:
+                return None
             found_result2, rv2 = self.try_step_two(potential_destinations2, address1, address2, mode1, mode2)
             if found_result2:
                 self.try_step_three(rv2, potential_destinations2)
