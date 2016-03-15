@@ -4,6 +4,8 @@
 
 Given two starting locations, preferred modes of transit, and a desired type of location (coffe shop, restaurant, park, etc.), Meet Halfway finds a meeting destination with roughly equal travel times for both parties.
 
+Meet Halfway is a Django app that uses SQLite3 for the database, and Bootstrap for the front end.
+
 ## Dependencies
 - [GoogleMaps](https://github.com/googlemaps/)
 - [Django](https://www.djangoproject.com/)
@@ -21,6 +23,6 @@ You need to have a [Google Maps API](https://developers.google.com/maps/) key en
 
 Save the Google Maps key in a text file called "apikeys.txt" in two places: the top-level directory, and the folder meethalfway
 
-You will also need a key for the USPS Address Information API: https://www.usps.com/business/web-tools-apis/welcome.htm
+You will also need a key for the [USPS Address Information API](https://www.usps.com/business/web-tools-apis/welcome.htm)
 
 Save the USPS key in a text file called "uspskey.txt" in the top-level directory
