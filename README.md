@@ -2,7 +2,7 @@
 
 ## About
 
-Given two starting locations, preferred modes of transit, and a desired type of location (coffee shop, restaurant, bar, etc.), Meet Halfway finds a meeting destination with roughly equal travel times for both parties.
+Given two starting locations, preferred modes of transit, and a desired type of location (coffee shop, restaurant, bar, etc.), Meet Halfway finds a meeting destination with roughly equal travel times for both parties. Meet Halfway currently works for addresses within the United States.
 
 Meet Halfway is a Django app that uses SQLite3 for the database, and Bootstrap for the front end.
 
