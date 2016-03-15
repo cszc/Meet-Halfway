@@ -1,16 +1,18 @@
-# pllc
+# Meet Halfway
 
 ## About
 
 Given two starting locations, preferred modes of transit, and a desired type of location (coffe shop, restaurant, park, etc.), Meet Halfway finds a meeting destination with roughly equal travel times for both parties.
 
-## Dependencies:
+## Dependencies
 - [GoogleMaps](https://github.com/googlemaps/)
 - [Django](https://www.djangoproject.com/)
 - [BootstrapForms](https://github.com/tzangms/django-bootstrap-form) `pip install django-bootstrap-form`
 - [RandomWords](https://pypi.python.org/pypi/RandomWords/0.1.5)
 - [lxml](http://lxml.de/)
 - [Requests](http://docs.python-requests.org/en/master/)
+
+## API keys 
 
 You need to have a [Google Maps API](https://developers.google.com/maps/) key enabled for:
 - Google Directions
