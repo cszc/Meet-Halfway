@@ -8,18 +8,27 @@ import csv
 from random_words import RandomWords
 import pyusps_modified
 
+#reading in apikey
 with open('apikeys.txt', 'r') as f:
     APIKEY = f.readline().strip()
 
+#initializing google maps client
 GMAP = googlemaps.Client(key=APIKEY)
 
 class Address(models.Model):
+    '''
+    Address class holds four attributes for street, city, state, and zip.
+    Method verify_address uses PYUSPS to validate address.
+    '''
     street = models.CharField(max_length = 64)
     city = models.CharField(max_length = 64)
     state = models.CharField(max_length = 2)
     zip_code = models.CharField(max_length = 5)
 
     def verify_address(self):
+    '''
+    Uses PYUSPS to verify addresses.
+    '''
         verify = True
         address = ""
         suggestion = ""
@@ -45,13 +54,16 @@ class Address(models.Model):
             if  "-2147219400" in str(e):
                 suggestion = "Check your city field entry"
 
-
         return verify, suggestion, address
 
     def __str__(self):
         return "%s %s %s %s" % (self.street, self.city, self.state, self.zip_code)
 
 class Participant(models.Model):
+    '''
+    Particpant model contains two attributes: transit mode and starting location
+    (an instance of the Address class).
+    '''
     TRANSIT_TYPES = (
         ("walking", "Walking"),
         ("transit", "Public Transit"),
@@ -65,6 +77,10 @@ class Participant(models.Model):
         return self.id
 
 class Destination(models.Model):
+    '''
+    An instance of destination is created for each potential meeting place
+    that meets the given criteria and holds several attributes.
+    '''
     address = models.CharField(max_length = 100, null=True, blank = True)
     a_time = models.CharField(max_length = 3, null=True, blank = True)
     b_time = models.CharField(max_length = 3, null=True, blank = True)
@@ -75,6 +91,12 @@ class Destination(models.Model):
     avg_time = models.CharField(max_length = 3, null=True, blank = True)
 
 class Meeting(models.Model):
+    '''
+    An instance of a meeting contains two participants, a business type,
+    trip id, and up to five instances of the Destination class.
+
+    It also contains several methods for finding the midpoint and destinations.
+    '''
     BUSINESS_TYPES = (
         ("cafe", "Cafe"),
         ("bar", "Bar"),
@@ -101,7 +123,10 @@ class Meeting(models.Model):
         return self.id
 
     def random_words(self):
-        #for url creation
+        '''
+        Generates three random words for meeting id and url creation
+        Outputs: meeting id (a string)
+        '''
         rw =  RandomWords()
         w1 = rw.random_word()
         w2 = rw.random_word()
@@ -118,6 +143,7 @@ class Meeting(models.Model):
         address1 = str(self.participant_one.starting_location)
         address2 = str(self.participant_two.starting_location)
 
+        #Returns none if participants enter same address for both
         if address1==address2:
             return None
 
@@ -126,39 +152,38 @@ class Meeting(models.Model):
 
         #Step 1: Get potential destinations based on midpoint for each participant
         #returns a dict and total time
-        potential_destinations = self.try_step_one(
+        potential_destinations = self.get_all_destinations(
             address1, address2, mode1, mode2)
         if len(potential_destinations) == 0:
             return None
 
         #Step 2: Get the times from each participant to each potential destination
-        found_result, rv = self.try_step_two(
+        found_result, destinations = self.test_matrices(
             potential_destinations, address1, address2, mode1, mode2)
 
         #Step 3: If good results found, create and add destination objects.
-        #Otherwise, return None and try again. What is RV here again? Note to rename
+        #Otherwise, return None and try again.
         if found_result:
-            self.try_step_three(rv, potential_destinations)
+            self.create_destinations(destinations, potential_destinations)
         else:
-            new_midpoint = rv
+            #Tries as second time from Step 2. If fails, returns None
+            new_midpoint = destinations
             potential_destinations2 = self.get_potential_destinations(midpoint = new_midpoint)
-            if len(potential_destinations) == 0:
-                return None
-            found_result2, rv2 = self.try_step_two(potential_destinations2, address1, address2, mode1, mode2)
+            found_result2, rv2 = self.test_matrices(potential_destinations2, address1, address2, mode1, mode2)
             if found_result2:
-                self.try_step_three(rv2, potential_destinations2)
+                self.create_destinations(rv2, potential_destinations2)
             else:
                 return None
 
 
     def get_target_time(self, time_a, time_b):
         '''
-        Calculates the target travel time for each participant 
+        Calculates the target travel time for each participant
 
         Inputs:
             time_a: travel time (seconds) for first participant to second address
             time_b: travel time for second participant to first address
-        Returns:
+        Outputs:
             target time in seconds
         '''
         total_time = time_a + time_b
@@ -166,7 +191,21 @@ class Meeting(models.Model):
         return target_time
 
 
-    def try_step_one(self, address1, address2, mode1, mode2):
+    def get_all_destinations(self, address1, address2, mode1, mode2):
+        '''
+        Step One of the algorithm.
+        First, it determines a target time by getting directions
+        from starting address one to starting address two and vice versa.
+        Then, it steps along both directions to find two potential midpoints.
+        Lastly, it tries to find potential destinations that match criteria
+        around the two destinations.
+        Returns a dictionary of all potential destinations.
+        Inputs:
+            address1, address2: instances of Address class
+            mode1, mode2: strings
+        Outputs:
+            potential destinations: dictionary
+        '''
         directions_a = self.get_directions(address1, address2, mode=mode1)
         directions_b = self.get_directions(address2, address1, mode=mode2)
 
@@ -183,8 +222,17 @@ class Meeting(models.Model):
         return dict(potential_dest_a, **potential_dest_b)
 
 
-    def try_step_two(self, potential_dest, address1, address2, mode1, mode2):
+    def test_matrices(self, potential_dest, address1, address2, mode1, mode2):
         '''
+        Given a list of potential desintations, calculates the time of travel
+        from each participant to each destination. Then, a call to get_results
+        returns and destinations that meet fairness criteria.
+        Inputs:
+            potential_dest: dictionary of addresses
+            address1, address2: each participant's address (instance of Address class)
+            mode1, mode2, each participant's mode of transportation (string)
+        Outputs:
+            Results: Boolean (True if result found) and best meeting places
         '''
         to_try = []
         for k, v in potential_dest.items():
@@ -197,8 +245,16 @@ class Meeting(models.Model):
         return self.get_results(matrix_a, matrix_b)
 
 
-    def try_step_three(self, rv, potential_dest):
-        final = self.map_addresses(rv, potential_dest)
+    def create_destinations(self, destinations, potential_dest):
+        '''
+        Creates destinations objects of good destinations are found.
+        Inputs:
+            destinations: dictionary
+            potential_destinations: dictionary
+        Outputs:
+            Nothing. Saves destination objects to database.
+        '''
+        final = self.map_addresses(destinations, potential_dest)
         for d, v in final.items():
             dest = Destination.objects.create(
                 address = d, a_time = v['a_mins'],
@@ -212,9 +268,15 @@ class Meeting(models.Model):
             self.destinations.add(dest)
 
 
-    def get_potential_destinations(self, steps=None, time=None, midpoint = None):
+    def get_potential_destinations(self, steps=None, time=None, midpoint=None):
         '''
-        Returns a dictionary of potential destinations (dicts)
+        Gets potential destinations around a lat long using call to Google Places.
+        If no midpoint is given, calculates a midpoint using steps and time.
+        Inputs:
+            steps: Dictionary of steps from Google directions call
+            time: Integer
+            midpoint: LatLong (string)
+        Outputs: Returns a dictionary of potential destinations
         '''
         if not midpoint:
             midpoint = self.get_midpoint(steps, time)
@@ -260,8 +322,14 @@ class Meeting(models.Model):
     def bisect(self, target_time, current_time, step):
         '''
         Given a target time, current time, and one step from a call to
-        Google Directions, returns a lat long as a string for the desired
+        Google Directions, returns a latlong as a string for the desired
         location along the path.
+        inputs:
+            target_time: integer
+            current_time: integer
+            step: dictionary
+        output:
+            latlng: string representing latlong
         '''
         time_left = target_time - current_time
         duration = step['duration']['value']
@@ -275,15 +343,35 @@ class Meeting(models.Model):
         add_lng = ratio*(end_lng - start_lng)
         new_lat = start_lat + add_lat
         new_lng = start_lng + add_lng
-        s = str(new_lat) + "," + str(new_lng)
-        return s
+        latlng = str(new_lat) + "," + str(new_lng)
+        return latlng
 
 
     def get_directions(self, origin, destination, mode='transit'):
+        '''
+        Given two addresses and a mode of transit, returns a call to Google
+        Directions API
+        input:
+            origin: Address class instance
+            destination: Address class instance
+            mode: Mode of transportation. Transit is default.
+        output:
+            List of dictionaries with steps and meta data from Google Directions
+            API call
+        '''
         return GMAP.directions(origin, destination, mode=mode)
 
 
     def get_steps_and_time(self, directions):
+        '''
+        Pulls out a dictionary of steps and total time traveled from a list of
+        dictionaries returned by a Google directions API call.
+        input:
+            directions: List of dicts from Google Directions API call
+        output:
+            substeps: list of steps
+            time: total time traveled (integer)
+        '''
         legs = directions[0]['legs']
         time = legs[0]['duration']['value']
         steps = legs[0]['steps']
@@ -292,6 +380,14 @@ class Meeting(models.Model):
 
 
     def get_substeps(self, steps):
+        '''
+        Returns substeps from given a step from Google Directions.
+        input:
+            steps: a dictionary containing information about the step from
+            Google Directions API call.
+        output:
+            substeps: list of substeps
+        '''
         substeps = []
         for x in steps:
             if 'steps' in x.keys():
@@ -303,6 +399,15 @@ class Meeting(models.Model):
 
 
     def get_midpoint(self, steps, target_time):
+        '''
+        Given a list of steps from a Google Directions call and a target time,
+        returns a lat-long that approximates the spatial point at which the
+        target time will be reached.
+        inputs:
+            steps: list (returned from Google Directions API call)
+        outputs:
+            lat-long: string
+        '''
         current_time = 0
         for step in steps:
             duration = step['duration']['value']
@@ -315,7 +420,7 @@ class Meeting(models.Model):
 
     def get_places(self, args):
         '''
-        Given a starting lat-long, fetch nearby places that fit user requirements from the 
+        Given a starting lat-long, fetch nearby places that fit user requirements from the
         Google Places API
         inputs:
             args: dictionary of arguments for the query
@@ -334,8 +439,8 @@ class Meeting(models.Model):
 
     def parse_places(self, places):
         '''
-        Parse the output of a request to the Google Places API and 
-        pull out the latlong, address, name, and unique place_id for 
+        Parse the output of a request to the Google Places API and
+        pull out the latlong, address, name, and unique place_id for
         each potential destination
         inputs:
             places: json returned by request to Google Places API
@@ -361,11 +466,11 @@ class Meeting(models.Model):
         '''
         Calls the Google Distance Matrix API
         inputs:
-            origins: 
+            origins:
             destinations:
             mode: defaults to transit
         outputs:
-            matrix: object returned by Google Distance Matrix API
+            matrix: List/dictionary object returned by Google Distance Matrix API
         '''
         matrix = GMAP.distance_matrix(origins, destinations, mode=mode)
         return matrix
@@ -377,9 +482,9 @@ class Meeting(models.Model):
         If no satisfactory solutions found, return the best-scoring lat-long
         inputs:
             matrix_a, matrix_b: results of calls to the Google Distance API
-        outputs:
+        output:
             found_result: Boolean (true if satisfactory solution found)
-            return_values: dictionary of destinations
+            destinations: dictionary of destinations or, if nothing found, best address
         '''
         ADDRESS = 0
         SCORE = 1
@@ -403,17 +508,17 @@ class Meeting(models.Model):
             if this_score > best[SCORE]:
                 best = (address_i, this_score)
 
-        return_values = {}
+        destinations = {}
         for k, v in scores.items():
-            if len(return_values) < 5:
+            if len(destinations) < 5:
                 if v['score'] < 0.2:
                     return_values[k] = v
-        if len(return_values) == 0:
+        if len(destinations) == 0:
             found_result = False
             return found_result, best[ADDRESS]
         else:
             found_result = True
-            return found_result, return_values
+            return found_result, destinations
 
     def __str__(self):
         return "%s " % (self.trip_id)
