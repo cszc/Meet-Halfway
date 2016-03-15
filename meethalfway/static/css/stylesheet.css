@@ -141,5 +141,14 @@ footer {
   height: 40px;
   background-color: #036564;
   color: #D3D3D3;
+  text-align: center;
   padding: .5em 6em .5em 6em;
+}
+
+.navbar-nav {
+    font-family: 'Raleway', sans-serif;
+}
+
+footer {
+        font-family: 'Raleway', sans-serif;
 }
