@@ -1,93 +1,93 @@
-{% extends "halfwayapp/base.html" %}
+{# Landing page after first form. Displays meeting name. #}
+{% extends "halfwayapp/base.html" %} {% block content %} {% load staticfiles %}
 
-{% block content %}
-
-{% load staticfiles %}
-
-<div class = "container">
-    <div class="row">
-            <div class='page-header'>
-            <h2>Alright! You're almost halfway there.</h2>
-            </div>
-        <div class="row">
-            <div class='col-sm-3'>
-                <h4 class='text-center'><span class="glyphicon glyphicon-check"></span></h4><h5 class='text-center'>1. Enter your starting point</h5>
-            </div>
-            <div class='col-sm-3 panel panel-default'>
-                <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
-                <h5 class='text-center'>2. Share link with your friend</h5>
-            </div>
-            <div class='col-sm-3'>
-                <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
-                <h5 class='text-center'>3. Friend enters their address</h5>
-            </div>
-            <div class='col-sm-3'>
-                <h4 class='text-center'><span class="glyphicon glyphicon glyphicon-map-marker"></span></h4>
-                <h5 class='text-center'>4. View your results</h5>
-            </div>
-        </div>
-        <hr>
-        <div class="col-md-offset-2 col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Send your friend this code (make sure you save it for yourself too!):</hr>
-                </div>
-                <div class="panel-body">
-                    <script src="{% static "clipboard/clipboard.min.js" %}"></script>
-                    <script>
+<div class="container">
+	<div class="row">
+		<div class='page-header'>
+			<h2>Alright! You're almost halfway there.</h2>
+		</div>
+		<div class="row">
+			<div class='col-sm-3'>
+				<h4 class='text-center'><span class="glyphicon glyphicon-check"></span></h4>
+				<h5 class='text-center'>1. Enter your starting point</h5>
+			</div>
+			<div class='col-sm-3 panel panel-default'>
+				<h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
+				<h5 class='text-center'>2. Share link with your friend</h5>
+			</div>
+			<div class='col-sm-3'>
+				<h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
+				<h5 class='text-center'>3. Friend enters their address</h5>
+			</div>
+			<div class='col-sm-3'>
+				<h4 class='text-center'><span class="glyphicon glyphicon glyphicon-map-marker"></span></h4>
+				<h5 class='text-center'>4. View your results</h5>
+			</div>
+		</div>
+		<hr>
+		<div class="col-md-offset-2 col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Send your friend this code (make sure you save it for yourself too!):
+					</hr>
+				</div>
+				<div class="panel-body">
+                    <!-- clipboard js and instructions from https://clipboardjs.com/ -->
+					<script src="{% static " clipboard/clipboard.min.js" %}"></script>
+					<script>
                     var clipboard = new Clipboard('.btn');
                     </script>
-                        <!-- Target -->
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="input-group">
-                                    <input class="form-control" id="copyid" value="{{uniq}}">
-                                    <!-- Trigger -->
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" data-clipboard-target="#copyid">
-                                            <span class='glyphicon glyphicon-copy'></span>
-                                            <!-- img src="../static/clipboard/assets/noun_168961_cc.svg" alt="Copy to clipboard" -->
-                                            Copy to clipboard
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <span>
-            <div class=container4>
-                    <p>or...</p>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Email them this message:</hr>
-                </div>
-                <div class="panel-body">
-                    <!-- Target -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <textarea id="fulltext" rows="3" cols="60" style="width:100%">Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io
-                            </textarea>
-                        </div>
-                    </div>
-                    <!-- Trigger -->
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <button class="btn btn-default" data-clipboard-target="#fulltext">
-                                <span class='glyphicon glyphicon-copy'></span>
-                                Copy to clipboard
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h3>What now?</h3>
-                <a class="btn btn-primary" href="/participant_two/{{uniq}}" role="button">Go to your meeting</a> or
-                <a class="btn-link" href="{% url 'meethalfway:home' %}" role="button">return to the homepage.</a>
-            </div>
-        </div>
-    </div>
+					<!-- Target -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="input-group">
+								<input class="form-control" id="copyid" value="{{uniq}}">
+								<!-- Trigger -->
+								<span class="input-group-btn">
+								<button class="btn btn-default" data-clipboard-target="#copyid">
+								<span class='glyphicon glyphicon-copy'></span>
+								<!-- img src="../static/clipboard/assets/noun_168961_cc.svg" alt="Copy to clipboard" -->
+								 Copy to clipboard </button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<span>
+			<div class=container4>
+				<p>
+					or...
+				</p>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Email them this message:
+					</hr>
+				</div>
+				<div class="panel-body">
+					<!-- Target -->
+					<div class="row">
+						<div class="col-lg-12">
+							<textarea id="fulltext" rows="3" cols="60" style="width:100%">Meet me halfway! Go to www.meethalfway.io/participant_two/{{uniq}} to fill out your address. You can also look up our meeting by pasting {{uniq}} into the meeting finder at www.meethalfway.io </textarea>
+						</div>
+					</div>
+					<!-- Trigger -->
+					<div class="row">
+						<div class="col-sm-4">
+							<button class="btn btn-default" data-clipboard-target="#fulltext">
+							<span class='glyphicon glyphicon-copy'></span>
+							Copy to clipboard </button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<h3>What now?</h3>
+				<a class="btn btn-primary" href="/participant_two/{{uniq}}" role="button">Go to your meeting</a> or <a class="btn-link" href="{% url 'meethalfway:home' %}" role="button">return to the homepage.</a>
+			</div>
+		</div>
+	</div>
 </div>
+
 {% endblock %}

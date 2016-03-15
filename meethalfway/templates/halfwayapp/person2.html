@@ -1,60 +1,68 @@
-{% extends "halfwayapp/base.html" %}
-{% load bootstrap %}
+{# Form 2 for Participant Two #}
+{% extends "halfwayapp/base.html" %} {% load bootstrap %} {% block content %}
 
-{% block content %}
+{# CSS Loading Animation #}
 <div class="loader-outer hidden">
-    <div class="loader-wrapper"><p>Hold on tight! We're finding the best meeting places for you.</p></div>
-    <div class="loader-inner ball-zig-zag">
-        <div></div>
-        <div></div>
-    </div>
+	<div class="loader-wrapper">
+		<p>
+			Hold on tight! We're finding the best meeting places for you.
+		</p>
+	</div>
+	<div class="loader-inner ball-zig-zag">
+		<div>
+		</div>
+		<div>
+		</div>
+	</div>
 </div>
 
 <div class="container" id="part2-container">
-    <div class="row">
-        <div class='col-sm-12'>
-            <div class='page-header'>
-                <h2>Add your starting address.</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class='col-sm-3'>
-                <h4 class='text-center'><span class="glyphicon glyphicon-check"></span></h4><h5 class='text-center'>1. Enter your starting point</h5>
-            </div>
-            <div class='col-sm-3'>
-                <h4 class='text-center'><span class="glyphicon glyphicon-check"></span></h4>
-                <h5 class='text-center'>2. Share link with your friend</h5>
-            </div>
-            <div class='col-sm-3 panel panel-default'>
-                <h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
-                <h5 class='text-center'>3. Friend enters their address</h5>
-            </div>
-            <div class='col-sm-3'>
-                <h4 class='text-center'><span class="glyphicon glyphicon glyphicon-map-marker"></span></h4>
-                <h5 class='text-center'>4. View your results</h5>
-            </div>
-        </div>
-        <hr>
-        <div class="col-md-offset-2 col-md-10">
-            <p class = "lead">Enter your starting point below.</p>
-            <div class="row">
-                <div class='col-sm-9' id="part2-form">
-                    <form method="post" class="form-horizontal">
-                        {% csrf_token %}
-                        <table class="table">
-                            {% for form in forms %}
-                                {{ form|bootstrap_horizontal }}
-                            {% endfor %}
-                        </table>
-                        <div class="form-group">
-                            <div class="col-sm-10 col-sm-offset-2">
-                                <input type="submit" name="PersonB_submit" value="Submit Address" class="btn btn-default"/>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class='col-sm-12'>
+			<div class='page-header'>
+				<h2>Add your starting address.</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class='col-sm-3'>
+				<h4 class='text-center'><span class="glyphicon glyphicon-check"></span></h4>
+				<h5 class='text-center'>1. Enter your starting point</h5>
+			</div>
+			<div class='col-sm-3'>
+				<h4 class='text-center'><span class="glyphicon glyphicon-check"></span></h4>
+				<h5 class='text-center'>2. Share link with your friend</h5>
+			</div>
+			<div class='col-sm-3 panel panel-default'>
+				<h4 class='text-center'><span class="glyphicon glyphicon-unchecked"></span></h4>
+				<h5 class='text-center'>3. Friend enters their address</h5>
+			</div>
+			<div class='col-sm-3'>
+				<h4 class='text-center'><span class="glyphicon glyphicon glyphicon-map-marker"></span></h4>
+				<h5 class='text-center'>4. View your results</h5>
+			</div>
+		</div>
+		<hr>
+		<div class="col-md-offset-2 col-md-10">
+			<p class="lead">
+				Enter your starting point below.
+			</p>
+			<div class="row">
+				<div class='col-sm-9' id="part2-form">
+					<form method="post" class="form-horizontal">
+						 {% csrf_token %}
+						<table class="table">
+						 {% for form in forms %} {{ form|bootstrap_horizontal }} {% endfor %}
+						</table>
+						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+								<input type="submit" name="PersonB_submit" value="Submit Address" class="btn btn-default"/>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
 {% endblock %}
