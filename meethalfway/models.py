@@ -26,9 +26,9 @@ class Address(models.Model):
     zip_code = models.CharField(max_length = 5)
 
     def verify_address(self):
-    '''
-    Uses PYUSPS to verify addresses.
-    '''
+        '''
+        Uses PYUSPS to verify addresses.
+        '''
         verify = True
         address = ""
         suggestion = ""
@@ -512,7 +512,7 @@ class Meeting(models.Model):
         for k, v in scores.items():
             if len(destinations) < 5:
                 if v['score'] < 0.2:
-                    return_values[k] = v
+                    destinations[k] = v
         if len(destinations) == 0:
             found_result = False
             return found_result, best[ADDRESS]
