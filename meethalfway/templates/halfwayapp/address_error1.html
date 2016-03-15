@@ -1,18 +1,15 @@
+{# Displayed when address cannot be found for participant one. #}
+{% extends "halfwayapp/base.html" %} {% block content %} {% load staticfiles %}
 
-{% extends "halfwayapp/base.html" %}
-{% block content %}
-
-{% load staticfiles %}
-
-<div class = "container">
-    <div class="row">
-        <div class='page-header'>
-        <h1>Sorry, we couldn't match this address.</h1>
-        <h2>{{suggestion}}</h2>
-    </div>
-            <h3>Please try again</h3>
-            <a class="btn btn-primary" href="/home" role="button">Return to the homepage</a>
-    </div>
+<div class="container">
+	<div class="row">
+		<div class='page-header'>
+			<h1>Sorry, we couldn't match this address.</h1>
+			<h2>{{suggestion}}</h2>
+		</div>
+		<h3>Please try again</h3>
+		<a class="btn btn-primary" href="/home" role="button">Return to the homepage</a>
+	</div>
 </div>
 
 {% endblock %}

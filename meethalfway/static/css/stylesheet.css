@@ -1,3 +1,6 @@
+/* css for loader animation from
+https://github.com/ConnorAtherton/loaders.css/tree/master*/
+
 @-webkit-keyframes ball-zig {
   33% {
     -webkit-transform: translate(-15px, -30px);
@@ -68,6 +71,7 @@
       -webkit-animation: ball-zag 0.7s 0s infinite linear;
               animation: ball-zag 0.7s 0s infinite linear; }
 
+/*Custom Styling for Loading Animation Text*/
 .loader-wrapper {
     margin-top: 10%;
     text-align: center;
@@ -78,6 +82,7 @@
     margin-bottom: 20%;
 }
 
+/*Custom styling, overwriting Bootstrap Defaults*/
 .page-header {
     font-family: 'Raleway', sans-serif;
 }
@@ -121,6 +126,8 @@ html {
   min-height: 100%;
 }
 
+/*Sticky Footer css, modified from:
+http://stackoverflow.com/questions/17966140/twitter-bootstrap-3-sticky-footer*/
 body {
   /* Margin bottom by footer height - Extra for padding*/
   margin-bottom: 60px;
