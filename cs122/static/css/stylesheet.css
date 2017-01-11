@@ -1,0 +1,154 @@
+/* css for loader animation from
+https://github.com/ConnorAtherton/loaders.css/tree/master*/
+
+@-webkit-keyframes ball-zig {
+  33% {
+    -webkit-transform: translate(-15px, -30px);
+            transform: translate(-15px, -30px); }
+  66% {
+    -webkit-transform: translate(15px, -30px);
+            transform: translate(15px, -30px); }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); } }
+
+@keyframes ball-zig {
+  33% {
+    -webkit-transform: translate(-15px, -30px);
+            transform: translate(-15px, -30px); }
+  66% {
+    -webkit-transform: translate(15px, -30px);
+            transform: translate(15px, -30px); }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); } }
+
+@-webkit-keyframes ball-zag {
+  33% {
+    -webkit-transform: translate(15px, 30px);
+            transform: translate(15px, 30px); }
+  66% {
+    -webkit-transform: translate(-15px, 30px);
+            transform: translate(-15px, 30px); }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); } }
+
+@keyframes ball-zag {
+  33% {
+    -webkit-transform: translate(15px, 30px);
+            transform: translate(15px, 30px); }
+  66% {
+    -webkit-transform: translate(-15px, 30px);
+            transform: translate(-15px, 30px); }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); } }
+
+.ball-zig-zag {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-15px, -15px);
+      -ms-transform: translate(-15px, -15px);
+          transform: translate(-15px, -15px); }
+  .ball-zig-zag > div {
+    background-color: #036564;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    margin: 2px;
+    -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+    position: absolute;
+    margin-left: 15px;
+    top: 4px;
+    left: -7px; }
+    .ball-zig-zag > div:first-child {
+      -webkit-animation: ball-zig 0.7s 0s infinite linear;
+              animation: ball-zig 0.7s 0s infinite linear; }
+    .ball-zig-zag > div:last-child {
+      -webkit-animation: ball-zag 0.7s 0s infinite linear;
+              animation: ball-zag 0.7s 0s infinite linear; }
+
+/*Custom Styling for Loading Animation Text*/
+.loader-wrapper {
+    margin-top: 10%;
+    text-align: center;
+    font-size: 2em;
+    color: #036564;
+    font-weight: bold;
+    padding: 2em;
+    margin-bottom: 20%;
+}
+
+/*Custom styling, overwriting Bootstrap Defaults*/
+.page-header {
+    font-family: 'Raleway', sans-serif;
+}
+
+.form-horizontal {
+    padding-bottom: 4em;
+}
+
+.navbar {
+    background-color: #031634;
+}
+
+div.container4 {
+    height: 4em;
+    position: relative
+}
+
+div.container4 p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5em;
+    padding-bottom: 1em;
+}
+
+.btn-primary {
+    background-color: #036564;
+}
+
+#map {
+  width: 500px;
+  height: 400px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+/*Sticky Footer css, modified from:
+http://stackoverflow.com/questions/17966140/twitter-bootstrap-3-sticky-footer*/
+body {
+  /* Margin bottom by footer height - Extra for padding*/
+  margin-bottom: 60px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  background-color: #036564;
+  color: #D3D3D3;
+  text-align: center;
+  padding: .5em 6em .5em 6em;
+}
+
+.navbar-nav {
+    font-family: 'Raleway', sans-serif;
+}
+
+footer {
+        font-family: 'Raleway', sans-serif;
+}
