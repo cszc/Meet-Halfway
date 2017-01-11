@@ -7,10 +7,10 @@ import googlemaps
 import csv
 from random_words import RandomWords
 import pyusps_modified
+import os
 
 #reading in apikey
-with open('apikeys.txt', 'r') as f:
-    APIKEY = f.readline().strip()
+APIKEY = os.environ.get('GOOG_API_KEY')
 
 #initializing google maps client
 GMAP = googlemaps.Client(key=APIKEY)
