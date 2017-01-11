@@ -1,0 +1,7 @@
+googlemaps
+requests
+random_words==0.1.13
+django==1.8.4
+lxml==3.5.0
+django-bootstrap-form
+gunicorn==19.1.o
