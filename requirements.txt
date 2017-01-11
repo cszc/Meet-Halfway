@@ -1,4 +1,4 @@
-whitenoise=3.2.3
+whitenoise==3.2.3
 googlemaps
 requests
 RandomWords==0.1.13
