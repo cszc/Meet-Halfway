@@ -5,3 +5,4 @@ django==1.8.4
 lxml==3.5.0
 django-bootstrap-form
 gunicorn==19.1.0
+django-bootstrap3
