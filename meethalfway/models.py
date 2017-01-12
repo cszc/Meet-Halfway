@@ -9,8 +9,9 @@ from random_words import RandomWords
 import pyusps_modified
 import os
 
-#reading in apikey
+#reading in apikey for goog and USPS
 APIKEY = os.environ.get('GOOG_API_KEY')
+USPSKEY = os.environ.get('USPS_KEY')
 
 #initializing google maps client
 GMAP = googlemaps.Client(key=APIKEY)
@@ -32,8 +33,6 @@ class Address(models.Model):
         verify = True
         address = ""
         suggestion = ""
-        with open('uspskey.txt', 'r') as f:
-            uspskey = f.readline().strip()
         addr = dict([
             ('address', self.street),
             ('city', self.city),
@@ -41,7 +40,7 @@ class Address(models.Model):
             ('zip_code', self.zip_code),
             ])
         try:
-            address = pyusps_modified.verify(uspskey,addr)
+            address = pyusps_modified.verify(USPSKEY, addr)
 
         except ValueError as e:
             verify = False
