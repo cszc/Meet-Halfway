@@ -7,3 +7,4 @@ lxml==3.5.0
 django-bootstrap-form
 gunicorn==19.1.0
 django-bootstrap3
+dj-database-url==0.4.2
