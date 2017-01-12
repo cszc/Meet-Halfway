@@ -6,7 +6,7 @@ import requests
 from django.core.urlresolvers import reverse
 from django import forms
 from . import models
-
+import os
 
 class EnterIDForm(forms.Form):
     '''
@@ -210,7 +210,8 @@ def results(request, trip_id):
         'destinations': destinations,
         'trip_id': trip_id,
         'lat': lat,
-        'lng': lng
+        'lng': lng,
+    	'goog_js_api_key': os.environ.get('GOOG_JS_API_KEY')
     }
     return render(request, "halfwayapp/results.html", c)
 
