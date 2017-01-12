@@ -81,13 +81,13 @@ class Destination(models.Model):
     that meets the given criteria and holds several attributes.
     '''
     address = models.CharField(max_length = 100, null=True, blank = True)
-    a_time = models.CharField(max_length = 3, null=True, blank = True)
-    b_time = models.CharField(max_length = 3, null=True, blank = True)
+    a_time = models.FloatField(null=True, blank = True)
+    b_time = models.FloatField(null=True, blank = True)
     latlng = models.CharField(max_length = 64, null=True, blank = True)
     name = models.CharField(max_length = 64, null=True, blank = True)
     place_id = models.CharField(max_length = 64, null=True, blank = True)
-    score = models.CharField(max_length = 3, null=True, blank = True)
-    avg_time = models.CharField(max_length = 3, null=True, blank = True)
+    score = models.FloatField(null=True, blank = True)
+    avg_time = models.FloatField(null=True, blank = True)
 
 class Meeting(models.Model):
     '''

@@ -25,13 +25,13 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
                 ('address', models.CharField(blank=True, null=True, max_length=100)),
-                ('a_time', models.CharField(blank=True, null=True, max_length=3)),
-                ('b_time', models.CharField(blank=True, null=True, max_length=3)),
+                ('a_time', models.FloatField(blank=True, null=True)),
+                ('b_time', models.FloatField(blank=True, null=True)),
                 ('latlng', models.CharField(blank=True, null=True, max_length=64)),
                 ('name', models.CharField(blank=True, null=True, max_length=64)),
                 ('place_id', models.CharField(blank=True, null=True, max_length=64)),
-                ('score', models.CharField(blank=True, null=True, max_length=3)),
-                ('avg_time', models.CharField(blank=True, null=True, max_length=3)),
+                ('score', models.FloatField(blank=True, null=True)),
+                ('avg_time', models.FloatField(blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
